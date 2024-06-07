@@ -1,18 +1,33 @@
 import type { FC } from "react";
+import { Route, Routes } from "react-router-dom";
 
-import { Navbar } from "~/components/Navbar/navbar";
+import { WelcomeScreen } from "~/components/welcome-screen";
 
-import { ReactRoutes } from "./routes/react-routes";
+import CategoryLayout from "./pages/Layouts/CategoryLayout";
+import RootLayout from "./pages/Layouts/RootLayout";
+import SubCategoryLayout from "./pages/Layouts/SubCategoryLayout";
+import NotFoundPage from "./pages/NotFoundPage";
+import ToolPage from "./pages/ToolPage";
+
+export type ParamsType = {
+  category: string;
+  subCategory: string;
+  tool: string;
+};
 
 export const Root: FC = ({}) => {
   return (
-    <>
-      <div className="flex h-screen flex-row-reverse">
-        <Navbar />
-        <main className="grow">
-          <ReactRoutes />
-        </main>
-      </div>
-    </>
+    <Routes>
+      <Route path="/" element={<RootLayout />} errorElement={<NotFoundPage />}>
+        <Route index element={<WelcomeScreen />} />
+        <Route path="c">
+          <Route path=":category" element={<CategoryLayout />}>
+            <Route path=":subCategory" element={<SubCategoryLayout />}>
+              <Route path=":tool" element={<ToolPage />} />
+            </Route>
+          </Route>
+        </Route>
+      </Route>
+    </Routes>
   );
 };

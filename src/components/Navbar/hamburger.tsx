@@ -3,7 +3,7 @@ import { RiMenuFoldLine } from "react-icons/ri";
 
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { Nav } from "./Nav/nav";
+import { CategoriesNav } from "./CategoriesNav/categories-nav";
 
 export const Hamburger: FC = ({}) => {
   return (
@@ -17,7 +17,7 @@ export const Hamburger: FC = ({}) => {
         </Button>
       </SheetTrigger>
       <SheetContent>
-        <Nav />
+        <CategoriesNav />
       </SheetContent>
     </Sheet>
   );

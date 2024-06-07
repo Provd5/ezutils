@@ -1,22 +1,19 @@
 import type { FC } from "react";
 import { NavLink } from "react-router-dom";
 
-import { type CategoryType } from "~/app/routes/routes";
+import { type OmittedCategory } from "~/app/appStructure/structure-types";
 import { cn } from "~/utils/utils";
 
 import { buttonVariants } from "../../ui/button";
-import { getNavLabels } from "./get-nav-labels";
 
-interface StyledNavLinkProps {
-  variant: CategoryType | "root";
+interface CategoriesNavLinkProps {
+  variant: OmittedCategory;
 }
 
-export const StyledNavLink: FC<StyledNavLinkProps> = ({ variant }) => {
-  const labels = getNavLabels(variant);
-
+export const CategoriesNavLink: FC<CategoriesNavLinkProps> = ({ variant }) => {
   return (
     <NavLink
-      to={labels.to}
+      to={variant.href}
       className={({ isActive }) =>
         cn(
           buttonVariants({
@@ -27,8 +24,8 @@ export const StyledNavLink: FC<StyledNavLinkProps> = ({ variant }) => {
         )
       }
     >
-      {labels.label}
-      <labels.Icon className="ml-1 size-4 shrink-0" />
+      {variant.label}
+      <variant.Icon className="ml-1 size-4 shrink-0" />
     </NavLink>
   );
 };
