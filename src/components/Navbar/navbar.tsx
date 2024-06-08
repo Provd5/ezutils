@@ -6,10 +6,10 @@ import { Hamburger } from "./hamburger";
 export const Navbar: FC = ({}) => {
   return (
     <>
-      <Hamburger />
-      <div className="inset-y-0 right-0 h-full w-1/3 max-w-sm shrink-0 gap-4 border-l bg-background p-6 shadow-lg max-md:hidden">
+      <div className="fixed inset-y-0 right-0 w-full max-w-80 shrink-0 gap-4 border-l bg-background p-6 shadow-lg max-md:hidden lg:max-w-96">
         <CategoriesNav />
       </div>
+      <Hamburger />
     </>
   );
 };

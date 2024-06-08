@@ -3,7 +3,12 @@ import { useParams } from "react-router-dom";
 
 import { APP_STRUCTURE } from "~/app/appStructure/app-structure";
 import { type Tool } from "~/app/appStructure/structure-types";
-import { type ParamsType } from "~/app/routes/react-routes";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "~/components/ui/carousel";
+import { type ParamsType } from "~/main";
 
 import { ToolsNavLink } from "./tools-nav-link";
 
@@ -18,17 +23,24 @@ export const ToolsNav: FC = ({}) => {
     ) ||
     !Object.keys(APP_STRUCTURE.categories).includes(category)
   )
-    return;
+    throw new Error("Page not found");
 
   const tools: Tool[] = Object.values(
     APP_STRUCTURE.categories[category].subCategories[subCategory].tools,
   );
 
   return (
-    <nav className="flex justify-center gap-1 overflow-x-auto px-3 pt-3">
-      {tools.map((tool) => (
-        <ToolsNavLink key={`SubNav-SubNavLink-${tool.href}`} variant={tool} />
-      ))}
-    </nav>
+    <Carousel opts={{ dragFree: true }}>
+      <CarouselContent className="mx-2 pt-3">
+        {tools.map((tool) => (
+          <CarouselItem
+            key={`SubNav-SubNavLink-${tool.href}`}
+            className="basis-30 pl-1"
+          >
+            <ToolsNavLink variant={tool} />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
   );
 };

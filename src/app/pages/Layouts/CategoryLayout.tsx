@@ -4,9 +4,9 @@ import { SubNav } from "~/components/Navbar/SubCategoriesNav/sub-nav";
 
 export default function CategoryLayout() {
   return (
-    <div>
+    <>
       <SubNav />
       <Outlet />
-    </div>
+    </>
   );
 }
