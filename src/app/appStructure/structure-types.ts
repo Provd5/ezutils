@@ -1,6 +1,13 @@
 import { type IconType } from "react-icons";
 
-import { type APP_STRUCTURE } from "./app-structure";
+import { type LinesSubCategoriesType } from "./categories/lines";
+import { type AffixesToolsType } from "./categories/subCategories/lines/affixes";
+import { type LineBreaksToolsType } from "./categories/subCategories/lines/line-breaks";
+import { type SortToolsType } from "./categories/subCategories/lines/sort";
+import { type CaseConverterToolsType } from "./categories/subCategories/texts/case-converter";
+import { type FindInTextToolsType } from "./categories/subCategories/texts/find-in-text";
+import { type RemoveToolsType } from "./categories/subCategories/texts/remove";
+import { type TextsSubCategoriesType } from "./categories/texts";
 
 // app
 export interface AppStructure {
@@ -20,10 +27,11 @@ export interface Category {
   subCategories: SubCategoryMap;
 }
 
-export type CategoryKeys = keyof typeof APP_STRUCTURE.categories;
 export type OmittedCategory = Omit<Category, "subCategories">;
 
 // subcategories
+export type SubCategoryKeys = LinesSubCategoriesType | TextsSubCategoriesType;
+
 type SubCategoryMap = {
   [key: string]: SubCategory;
 };
@@ -33,6 +41,14 @@ export interface SubCategory extends OmittedCategory {
 }
 
 // tools
+export type ToolKeys =
+  | LineBreaksToolsType
+  | SortToolsType
+  | AffixesToolsType
+  | CaseConverterToolsType
+  | RemoveToolsType
+  | FindInTextToolsType;
+
 type ToolMap = {
   [key: string]: Tool;
 };
@@ -40,4 +56,7 @@ type ToolMap = {
 export interface Tool {
   href: string;
   label: string;
+  description: string;
+  inputExample: string;
+  outputExample: string;
 }

@@ -1,8 +1,6 @@
 import { FaRegPlayCircle } from "react-icons/fa";
 
-import { type OmittedCategory } from "../structure-types";
-
-export const HOME_CATEGORY: OmittedCategory = {
+export const HOME_CATEGORY = {
   href: "/",
   label: "Get started",
   Icon: FaRegPlayCircle,

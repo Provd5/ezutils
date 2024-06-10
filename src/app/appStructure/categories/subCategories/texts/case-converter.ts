@@ -2,9 +2,10 @@ import { TfiUppercase } from "react-icons/tfi";
 
 import { CASE_CONVERTER_ROUTE_BASE } from "~/app/appStructure/routes";
 
-import { type SubCategory } from "../../../structure-types";
+export type CaseConverterToolsType =
+  keyof typeof CASE_CONVERTER_SUBCATEGORY.tools;
 
-export const CASE_CONVERTER_SUBCATEGORY: SubCategory = {
+export const CASE_CONVERTER_SUBCATEGORY = {
   href: CASE_CONVERTER_ROUTE_BASE,
   label: "Letter case",
   Icon: TfiUppercase,
@@ -12,26 +13,51 @@ export const CASE_CONVERTER_SUBCATEGORY: SubCategory = {
     camel: {
       href: `${CASE_CONVERTER_ROUTE_BASE}/camel`,
       label: "To camelCase",
+      description: `Change the words connected " ", "-" or "_" to camelCase`,
+      inputExample: `Lorem-ipsum dolor sit_amet`,
+      outputExample: `loremIpsumDolorSitAmet`,
     },
     pascal: {
       href: `${CASE_CONVERTER_ROUTE_BASE}/pascal`,
       label: "To PascalCase",
+      description: `Change the words connected " ", "-" or "_" to PascalCase`,
+      inputExample: `lorem-ipsum dolor sit_amet`,
+      outputExample: `LoremIpsumDolorSitAmet`,
     },
     snake: {
       href: `${CASE_CONVERTER_ROUTE_BASE}/snake`,
       label: "To SNAKE_CASE",
+      description: `Change the words connected " ", "-", "_" or capitalLetter to SNAKE_CASE`,
+      inputExample: `Lorem-ipsum dolor sitAmet`,
+      outputExample: `LOREM_IPSUM_DOLOR_SIT_AMET`,
     },
     upper: {
       href: `${CASE_CONVERTER_ROUTE_BASE}/upper`,
       label: "To UPPERCASE",
+      description: `Change letters in words to UPPERCASE`,
+      inputExample: `Lorem ipsum dolor sit amet`,
+      outputExample: `LOREM IPSUM DOLOR SIT AMET`,
     },
     lower: {
       href: `${CASE_CONVERTER_ROUTE_BASE}/lower`,
       label: "To lowercase",
+      description: `Change letters in words to lowercase`,
+      inputExample: `Lorem IPSUM doLor SIT AMET`,
+      outputExample: `Lorem ipsum dolor sit amet`,
+    },
+    title: {
+      href: `${CASE_CONVERTER_ROUTE_BASE}/title`,
+      label: "To Titlecase",
+      description: `Change first letter to uppercase and the rest to lowercase`,
+      inputExample: `Lorem IPSUM doLor SIT AMET`,
+      outputExample: `Lorem Ipsum Dolor Sit Amet`,
     },
     sentence: {
       href: `${CASE_CONVERTER_ROUTE_BASE}/sentence`,
       label: "To Sentence.",
+      description: `Change the given text to a stylistically correct one`,
+      inputExample: `lorem ipsum . dolor,SIT   amet`,
+      outputExample: `Lorem ipsum. Dolor, SIT amet`,
     },
   },
 } as const;

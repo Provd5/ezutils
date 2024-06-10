@@ -15,7 +15,7 @@ export const errorHandler = (error: unknown): string => {
   } else if (typeof error === "string") {
     errorMsg = error;
   } else {
-    errorMsg = "Something went wrong";
+    errorMsg = "Not found";
   }
 
   return errorMsg;

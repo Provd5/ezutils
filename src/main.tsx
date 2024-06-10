@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -13,13 +14,15 @@ import CategoryLayout from "./app/pages/Layouts/CategoryLayout";
 import RootLayout from "./app/pages/Layouts/RootLayout";
 import SubCategoryLayout from "./app/pages/Layouts/SubCategoryLayout";
 import ToolPage from "./app/pages/ToolPage";
+import { store } from "./app/store";
 import { ThemeProvider } from "./components/ui/theme-provider";
 import { WelcomeScreen } from "./components/welcome-screen";
 
 export type ParamsType = {
-  category: string;
-  subCategory: string;
-  tool: string;
+  category?: string;
+  subCategory?: string;
+  tool?: string;
+  [key: string]: string | undefined;
 };
 
 const router = createBrowserRouter(
@@ -40,7 +43,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider defaultTheme="dark">
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </ThemeProvider>
   </React.StrictMode>,
 );
