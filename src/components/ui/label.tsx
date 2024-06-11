@@ -1,18 +1,23 @@
-import type { FC } from "react";
+import React from "react";
 
-interface LabelProps {
-  children: React.ReactNode;
-  htmlFor: string;
-  title: string;
-}
+import { cn } from "~/utils/utils";
 
-export const Label: FC<LabelProps> = ({ children, htmlFor, title }) => {
-  return (
-    <div>
-      <label htmlFor={htmlFor} className="ml-1 text-sm text-muted-foreground">
-        {title}
-      </label>
-      {children}
-    </div>
-  );
-};
+export type LabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
+
+const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <label
+        className={cn(
+          "ml-1 text-sm text-muted-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+          className,
+        )}
+        ref={ref}
+        {...props}
+      />
+    );
+  },
+);
+Label.displayName = "Label";
+
+export { Label };

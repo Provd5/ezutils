@@ -1,4 +1,4 @@
-import { CgFormatSeparator } from "react-icons/cg";
+import { VscListFlat } from "react-icons/vsc";
 
 import { LINE_BREAKS_ROUTE_BASE } from "~/app/appStructure/routes";
 
@@ -7,12 +7,12 @@ export type LineBreaksToolsType = keyof typeof LINE_BREAKS_SUBCATEGORY.tools;
 export const LINE_BREAKS_SUBCATEGORY = {
   href: LINE_BREAKS_ROUTE_BASE,
   label: "Line breaks",
-  Icon: CgFormatSeparator,
+  Icon: VscListFlat,
   tools: {
     add: {
       href: `${LINE_BREAKS_ROUTE_BASE}/add`,
-      label: "Add new lines",
-      description: `Break the lines at a specific point (fe. after ", ")`,
+      label: "New breaks",
+      description: `Break the lines at a specific point`,
       inputExample: `Lorem ipsum, dolor, sit amet`,
       outputExample: `Lorem ipsum, \ndolor, \nsit amet`,
     },

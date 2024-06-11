@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 
 import { type AppDispatch, type AppState } from "~/app/store";
-import { newInput } from "~/features/inputSlice";
-import { newOutput } from "~/features/outputSlice";
+import { newInput } from "~/features/input-slice";
+import { newOutput } from "~/features/output-slice";
 import { validateParams } from "~/utils/validate-params";
 
-import { converter } from "../../converter/converter";
+import { converter } from "../../converters/converters";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 
@@ -37,7 +37,8 @@ export const ToolInput: FC<ToolInputProps> = ({ placeholder }) => {
   }, [tool]);
 
   return (
-    <Label htmlFor="tool-input" title="Input:">
+    <div>
+      <Label htmlFor="tool-input">Input:</Label>
       <Textarea
         id="tool-input"
         className="min-h-36"
@@ -45,6 +46,6 @@ export const ToolInput: FC<ToolInputProps> = ({ placeholder }) => {
         onChange={(e) => changeInputValue(e.target.value)}
         defaultValue={inputValue}
       />
-    </Label>
+    </div>
   );
 };

@@ -27,15 +27,15 @@ export const CopyOutput: FC = ({}) => {
     }, 1000);
 
     if (outputValue.trim() === "") {
-      setCopyStatus({ success: false, msg: "No content to copy!" });
+      setCopyStatus({ success: false, msg: "No content to copy! ⛔" });
       return;
     }
 
     try {
       navigator.clipboard.writeText(outputValue);
-      setCopyStatus({ success: true, msg: "Text copied successfully!" });
+      setCopyStatus({ success: true, msg: "Copied successfully! ✅" });
     } catch (error) {
-      setCopyStatus({ success: false, msg: "Failed to copy text!" });
+      setCopyStatus({ success: false, msg: "Failed to copy! ❌" });
     }
   };
 
@@ -43,7 +43,11 @@ export const CopyOutput: FC = ({}) => {
     <TooltipProvider>
       <Tooltip open={copyStatus ? true : false}>
         <TooltipTrigger asChild>
-          <Button onClick={() => copyOutput()} className="group">
+          <Button
+            onClick={() => copyOutput()}
+            className="group disabled:select-none disabled:opacity-100"
+            disabled={!!copyStatus}
+          >
             {copyStatus ? (
               copyStatus.success ? (
                 <FaCircleCheck className="size-5 shrink-0 animate-show" />

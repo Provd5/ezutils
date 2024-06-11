@@ -16,8 +16,4 @@ function htmlElements(input: string): string {
   return input.replace(/<[^>]+>/g, "");
 }
 
-function replace(input: string): string {
-  return input.replace(" ", " ").trim(); // ===========
-}
-
-export default { spaces, excessSpaces, accents, htmlElements, replace };
+export default { spaces, excessSpaces, accents, htmlElements };

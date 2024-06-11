@@ -1,4 +1,4 @@
-import { PiCursorTextBold } from "react-icons/pi";
+import { VscSymbolKey } from "react-icons/vsc";
 
 import { TEXTS_ROUTE_BASE } from "../routes";
 import { CASE_CONVERTER_SUBCATEGORY } from "./subCategories/texts/case-converter";
@@ -11,7 +11,7 @@ export type TextsSubCategoriesType =
 export const TEXTS_CATEGORY = {
   href: TEXTS_ROUTE_BASE,
   label: "Edit sentences",
-  Icon: PiCursorTextBold,
+  Icon: VscSymbolKey,
   subCategories: {
     caseConverter: CASE_CONVERTER_SUBCATEGORY,
     remove: REMOVE_SUBCATEGORY,

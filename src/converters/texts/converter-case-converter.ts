@@ -1,33 +1,36 @@
-import remove from "./remove";
+import remove from "./converter-remove";
 
 function camel(input: string): string {
-  const words = input.split(/(?<=\w)[-_ ](?=\w)/);
-  const camelCase = words.map((word, index) => {
-    if (index === 0) {
-      return word.toLowerCase();
-    } else {
+  const words = input.split(/(?<=\w)[-_ ](?=\w)|(?<=[a-z])(?=[A-Z])/);
+  return words
+    .map((word) => {
       return (
-        (typeof word[0] === "string" ? word[0].toUpperCase() : "") +
-        word.slice(1).toLowerCase()
+        (word[0] ? word[0].toUpperCase() : "") + word.slice(1).toLowerCase()
       );
-    }
-  });
-  return camelCase.join("");
+    })
+    .join("");
 }
 
 function pascal(input: string): string {
-  const words = input.split(/(?<=\w)[-_ ](?=\w)/);
-  const camelCase = words.map((word) => {
-    return (
-      (typeof word[0] === "string" ? word[0].toUpperCase() : "") +
-      word.slice(1).toLowerCase()
-    );
-  });
-  return camelCase.join("");
+  const lines = input.split("\n");
+  return lines
+    .map((line) => {
+      const words = line.split(
+        /(?<=\w)[-_ ](?=\w)|(?<=[a-z ])(?=[A-Z])|(?<=[\W ])(?=\w)/g,
+      );
+      return words
+        .map((word) => {
+          return (
+            (word[0] ? word[0].toUpperCase() : "") + word.slice(1).toLowerCase()
+          );
+        })
+        .join("");
+    })
+    .join("\n");
 }
 
 function snake(input: string): string {
-  const words = input.split(/(?<=\w)[- ](?=\w)/);
+  const words = input.split(/(?<=\w)[- ](?=\w)|(?<=[a-z])(?=[A-Z])/);
   const snakeCase = words
     .map((word) => (typeof word === "string" ? word.toUpperCase() : ""))
     .join("_");
@@ -43,14 +46,19 @@ function lower(input: string): string {
 }
 
 function title(input: string): string {
-  const words = input.split(" ");
-  return words
-    .map(
-      (word) =>
-        (typeof word[0] === "string" ? word[0].toUpperCase() : "") +
-        word.slice(1).toLowerCase(),
-    )
-    .join(" ");
+  const lines = input.split("\n");
+  return lines
+    .map((line) => {
+      const words = line.split(/(?<=[\W ])(?=\w)/g);
+      return words
+        .map((word) => {
+          return (
+            (word[0] ? word[0].toUpperCase() : "") + word.slice(1).toLowerCase()
+          );
+        })
+        .join("");
+    })
+    .join("\n");
 }
 
 function sentence(input: string): string {

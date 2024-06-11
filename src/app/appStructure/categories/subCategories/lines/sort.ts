@@ -1,13 +1,12 @@
-import { FaSortAmountDown } from "react-icons/fa";
+import { BsSortDown } from "react-icons/bs";
 
 import { SORT_ROUTE_BASE } from "~/app/appStructure/routes";
 
 export type SortToolsType = keyof typeof SORT_SUBCATEGORY.tools;
-
 export const SORT_SUBCATEGORY = {
   href: SORT_ROUTE_BASE,
   label: "Sort lines",
-  Icon: FaSortAmountDown,
+  Icon: BsSortDown,
   tools: {
     sortAsc: {
       href: `${SORT_ROUTE_BASE}/sortAsc`,

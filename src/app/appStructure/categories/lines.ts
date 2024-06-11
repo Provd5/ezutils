@@ -1,4 +1,4 @@
-import { BsParagraph } from "react-icons/bs";
+import { VscWordWrap } from "react-icons/vsc";
 
 import { LINES_ROUTE_BASE } from "../routes";
 import { AFFIXES_SUBCATEGORY } from "./subCategories/lines/affixes";
@@ -11,7 +11,7 @@ export type LinesSubCategoriesType =
 export const LINES_CATEGORY = {
   href: LINES_ROUTE_BASE,
   label: "Edit paragraphs",
-  Icon: BsParagraph,
+  Icon: VscWordWrap,
   subCategories: {
     lineBreaks: LINE_BREAKS_SUBCATEGORY,
     sort: SORT_SUBCATEGORY,

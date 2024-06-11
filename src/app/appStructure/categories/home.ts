@@ -1,7 +1,7 @@
-import { FaRegPlayCircle } from "react-icons/fa";
+import { VscPlayCircle } from "react-icons/vsc";
 
 export const HOME_CATEGORY = {
   href: "/",
   label: "Get started",
-  Icon: FaRegPlayCircle,
+  Icon: VscPlayCircle,
 } as const;

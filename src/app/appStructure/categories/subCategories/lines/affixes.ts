@@ -1,4 +1,4 @@
-import { MdFormatListBulleted } from "react-icons/md";
+import { VscListUnordered } from "react-icons/vsc";
 
 import { AFFIXES_ROUTE_BASE } from "~/app/appStructure/routes";
 
@@ -7,7 +7,7 @@ export type AffixesToolsType = keyof typeof AFFIXES_SUBCATEGORY.tools;
 export const AFFIXES_SUBCATEGORY = {
   href: AFFIXES_ROUTE_BASE,
   label: "Affixes",
-  Icon: MdFormatListBulleted,
+  Icon: VscListUnordered,
   tools: {
     numberLines: {
       href: `${AFFIXES_ROUTE_BASE}/numberLines`,
@@ -25,7 +25,7 @@ export const AFFIXES_SUBCATEGORY = {
     },
     suffixes: {
       href: `${AFFIXES_ROUTE_BASE}/suffixes`,
-      label: "Edit Suffixes",
+      label: "Edit suffixes",
       description: `Add a suffix at the beginning of each line`,
       inputExample: `Lorem ipsum\ndolor\nsit amet`,
       outputExample: `Lorem ipsum:\ndolor:\nsit amet:`,

@@ -1,11 +1,11 @@
 import { type ToolKeys } from "~/app/appStructure/structure-types";
 
-import affixes from "./lines/affixes";
-import lineBreaks from "./lines/line-breaks";
-import sort from "./lines/sort";
-import caseConverter from "./texts/case-converter";
-import findInText from "./texts/find-in-text";
-import remove from "./texts/remove";
+import affixes from "./lines/converter-affixes";
+import lineBreaks from "./lines/converter-line-breaks";
+import sort from "./lines/converter-sort";
+import caseConverter from "./texts/converter-case-converter";
+import findInText from "./texts/converter-find-in-text";
+import remove from "./texts/converter-remove";
 
 export const converter = (tool: ToolKeys, value: string) => {
   let newValue: string;
@@ -62,6 +62,12 @@ export const converter = (tool: ToolKeys, value: string) => {
     case "title":
       newValue = caseConverter.title(value);
       break;
+    case "replace":
+      newValue = findInText.replace(value);
+      break;
+    case "find":
+      newValue = findInText.find(value);
+      break;
     case "letters":
       newValue = findInText.letters(value);
       break;
@@ -82,9 +88,6 @@ export const converter = (tool: ToolKeys, value: string) => {
       break;
     case "htmlTags":
       newValue = remove.htmlElements(value);
-      break;
-    case "replace":
-      newValue = remove.replace(value);
       break;
     case "spaces":
       newValue = remove.spaces(value);

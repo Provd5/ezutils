@@ -9,6 +9,20 @@ export const FIND_IN_TEXT_SUBCATEGORY = {
   label: "Find in text",
   Icon: RiMenuSearchLine,
   tools: {
+    replace: {
+      href: `${FIND_IN_TEXT_ROUTE_BASE}/replace`,
+      label: "Replace",
+      description: `Replace the given words or letters with something else`,
+      inputExample: `Lorem iprem,\ndolor-sit\namet.`,
+      outputExample: `Lox ipx, ("rem" → "x")\ndolor_sit ("-" → "_")\nameT! ("t." → "T!")`,
+    },
+    find: {
+      href: `${FIND_IN_TEXT_ROUTE_BASE}/find`,
+      label: "Find and count",
+      description: `Finds the given text and counts how many times it occurs`,
+      inputExample: `Lorem ipsum,\ndolor sit ipsum\namet ipsum.`,
+      outputExample: `ipsum\nOccurs: 3`,
+    },
     links: {
       href: `${FIND_IN_TEXT_ROUTE_BASE}/links`,
       label: "Find links",

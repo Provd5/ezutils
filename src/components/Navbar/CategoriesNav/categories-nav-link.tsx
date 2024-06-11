@@ -25,7 +25,7 @@ export const CategoriesNavLink: FC<CategoriesNavLinkProps> = ({ variant }) => {
       }
     >
       {variant.label}
-      <variant.Icon className="ml-1 size-4 shrink-0" />
+      <variant.Icon className="ml-1 size-5 shrink-0" />
     </NavLink>
   );
 };

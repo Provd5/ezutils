@@ -14,7 +14,8 @@ export const ToolOutput: FC<ToolOutputProps> = ({ placeholder }) => {
   const outputValue = useSelector((state: AppState) => state.output);
 
   return (
-    <Label htmlFor="tool-output" title="Output:">
+    <div>
+      <Label htmlFor="tool-output">Output:</Label>
       <Textarea
         id="tool-output"
         className="min-h-36"
@@ -22,6 +23,6 @@ export const ToolOutput: FC<ToolOutputProps> = ({ placeholder }) => {
         value={outputValue}
         readOnly
       />
-    </Label>
+    </div>
   );
 };

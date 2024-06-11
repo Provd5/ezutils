@@ -3,7 +3,7 @@ import { FiRefreshCw } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 
 import { type AppDispatch, type AppState } from "~/app/store";
-import { newInput } from "~/features/inputSlice";
+import { newInput } from "~/features/input-slice";
 
 import { Button } from "../ui/button";
 

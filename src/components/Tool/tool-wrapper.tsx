@@ -10,6 +10,7 @@ import { type ParamsType } from "~/main";
 import { validateParams } from "~/utils/validate-params";
 
 import { CopyOutput } from "./copy-output";
+import { Helpers } from "./helpers/helpers";
 import { ToolInput } from "./tool-input";
 import { ToolOutput } from "./tool-output";
 import { UseOutput } from "./use-output";
@@ -27,10 +28,11 @@ export const ToolWrapper: FC = ({}) => {
       <p>
         <span className="text-lg font-bold">{label}</span> - {description}
       </p>
+      <Helpers tool={tool} />
       <div className="flex flex-col gap-0.5">
         <ToolInput placeholder={inputExample} />
         <ToolOutput placeholder={outputExample} />
-        <div className="mt-1.5 flex gap-3">
+        <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 max-sm:justify-center">
           <UseOutput />
           <CopyOutput />
         </div>
