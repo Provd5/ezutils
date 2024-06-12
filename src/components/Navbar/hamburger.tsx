@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 import { Button } from "../ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
-import { CategoriesNav } from "./CategoriesNav/categories-nav";
+import { RootNav } from "./Nav/root-nav";
 
 export const Hamburger: FC = ({}) => {
   const location = useLocation();
@@ -32,7 +32,7 @@ export const Hamburger: FC = ({}) => {
       </SheetTrigger>
       <SheetContent>
         <SheetClose asChild>
-          <CategoriesNav />
+          <RootNav />
         </SheetClose>
       </SheetContent>
     </Sheet>

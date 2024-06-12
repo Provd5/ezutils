@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
 
-import { ToolsNav } from "~/components/Navbar/ToolsNav/tools-nav";
+import { TextsSubNav } from "~/components/Navbar/TextsSubNav/texts-sub-nav";
 
-export default function SubCategoryLayout() {
+export default function TextsSubCategoryLayout() {
   return (
     <>
-      <ToolsNav />
+      <TextsSubNav />
       <Outlet />
     </>
   );

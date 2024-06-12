@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import inputReducer from "~/features/input-slice";
-import affixesReducer from "~/features/lines/affixes-slice";
-import lineBreaksReducer from "~/features/lines/line-breaks-slice";
 import outputReducer from "~/features/output-slice";
 import settingsReducer from "~/features/settings-slice";
-import findInTextReducer from "~/features/texts/find-in-text-slice";
+import affixesReducer from "~/features/texts/paragraphs/affixes-slice";
+import lineBreaksReducer from "~/features/texts/paragraphs/line-breaks-slice";
+import findInTextReducer from "~/features/texts/sentences/find-in-text-slice";
 
 export const store = configureStore({
   reducer: {

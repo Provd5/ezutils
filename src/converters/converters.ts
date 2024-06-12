@@ -1,96 +1,96 @@
-import { type ToolKeys } from "~/app/appStructure/structure-types";
+import { type TextsToolKeys } from "~/types/texts";
 
-import affixes from "./lines/converter-affixes";
-import lineBreaks from "./lines/converter-line-breaks";
-import sort from "./lines/converter-sort";
-import caseConverter from "./texts/converter-case-converter";
-import findInText from "./texts/converter-find-in-text";
-import remove from "./texts/converter-remove";
+import affixes from "./texts/paragraphs/converter-affixes";
+import lineBreaks from "./texts/paragraphs/converter-line-breaks";
+import sort from "./texts/paragraphs/converter-sort";
+import caseConverter from "./texts/sentences/converter-case-converter";
+import findInText from "./texts/sentences/converter-find-in-text";
+import remove from "./texts/sentences/converter-remove";
 
-export const converter = (tool: ToolKeys, value: string) => {
+export const converter = (tool: TextsToolKeys, value: string) => {
   let newValue: string;
 
   switch (tool) {
-    case "numberLines":
-      newValue = affixes.numberLines(value);
+    case "insertLineNumbering":
+      newValue = affixes.insertLineNumbering(value);
       break;
-    case "prefixes":
-      newValue = affixes.prefixes(value);
+    case "addPrefixes":
+      newValue = affixes.addPrefixes(value);
       break;
-    case "suffixes":
-      newValue = affixes.suffixes(value);
+    case "addSuffixes":
+      newValue = affixes.addSuffixes(value);
       break;
-    case "add":
-      newValue = lineBreaks.add(value);
+    case "addNewBreak":
+      newValue = lineBreaks.addNewBreak(value);
       break;
-    case "remove":
+    case "removeBreaks":
       newValue = lineBreaks.removeBreaks(value);
       break;
-    case "removeDuplicated":
-      newValue = lineBreaks.removeDuplicated(value);
+    case "removeDuplicatedLines":
+      newValue = lineBreaks.removeDuplicatedLines(value);
       break;
-    case "removeExcess":
+    case "removeExcessBreaks":
       newValue = lineBreaks.removeExcessBreaks(value);
       break;
-    case "reverse":
-      newValue = sort.reverse(value);
+    case "reverseLines":
+      newValue = sort.reverseLines(value);
       break;
-    case "shuffle":
-      newValue = sort.shuffle(value);
+    case "shuffleLines":
+      newValue = sort.shuffleLines(value);
       break;
     case "sortAsc":
       newValue = sort.sortAsc(value);
       break;
-    case "camel":
-      newValue = caseConverter.camel(value);
+    case "camelCase":
+      newValue = caseConverter.camelCase(value);
       break;
-    case "lower":
-      newValue = caseConverter.lower(value);
+    case "lowerCase":
+      newValue = caseConverter.lowerCase(value);
       break;
-    case "pascal":
-      newValue = caseConverter.pascal(value);
+    case "pascalCase":
+      newValue = caseConverter.pascalCase(value);
       break;
     case "sentence":
       newValue = caseConverter.sentence(value);
       break;
-    case "snake":
-      newValue = caseConverter.snake(value);
+    case "snakeCase":
+      newValue = caseConverter.snakeCase(value);
       break;
-    case "upper":
-      newValue = caseConverter.upper(value);
+    case "upperCase":
+      newValue = caseConverter.upperCase(value);
       break;
-    case "title":
-      newValue = caseConverter.title(value);
+    case "titleCase":
+      newValue = caseConverter.titleCase(value);
       break;
-    case "replace":
-      newValue = findInText.replace(value);
+    case "findAndReplace":
+      newValue = findInText.findAndReplace(value);
       break;
-    case "find":
-      newValue = findInText.find(value);
+    case "findAndCount":
+      newValue = findInText.findAndCount(value);
       break;
-    case "letters":
-      newValue = findInText.letters(value);
+    case "findLetters":
+      newValue = findInText.findLetters(value);
       break;
-    case "links":
-      newValue = findInText.links(value);
+    case "findLinks":
+      newValue = findInText.findLinks(value);
       break;
-    case "notLetters":
-      newValue = findInText.notLetters(value);
+    case "findNotLetters":
+      newValue = findInText.findNotLetters(value);
       break;
-    case "quote":
-      newValue = findInText.quote(value);
+    case "findQuotes":
+      newValue = findInText.findQuotes(value);
       break;
-    case "accents":
-      newValue = remove.accents(value);
+    case "removeAccents":
+      newValue = remove.removeAccents(value);
       break;
-    case "excessSpaces":
-      newValue = remove.excessSpaces(value);
+    case "removeExcessSpaces":
+      newValue = remove.removeExcessSpaces(value);
       break;
-    case "htmlTags":
-      newValue = remove.htmlElements(value);
+    case "removeHtmlTags":
+      newValue = remove.removeHtmlTags(value);
       break;
-    case "spaces":
-      newValue = remove.spaces(value);
+    case "removeSpaces":
+      newValue = remove.removeSpaces(value);
       break;
     default:
       throw new Error("Invalid tool");
