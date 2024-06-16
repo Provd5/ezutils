@@ -3,10 +3,11 @@ import { type ParagraphsSubCategoriesKeys } from "~/app/appStructure/root/texts/
 import { type SentencesSubCategoriesKeys } from "~/app/appStructure/root/texts/sentences";
 import { type AffixesToolsKeys } from "~/app/appStructure/root/texts/textsSubCategory/paragraphs/affixes";
 import { type LineBreaksToolsKeys } from "~/app/appStructure/root/texts/textsSubCategory/paragraphs/line-breaks";
-import { type SortToolsKeys } from "~/app/appStructure/root/texts/textsSubCategory/paragraphs/sort";
+import { type SortLinesToolsKeys } from "~/app/appStructure/root/texts/textsSubCategory/paragraphs/sort-lines";
 import { type CaseConverterToolsKeys } from "~/app/appStructure/root/texts/textsSubCategory/sentences/case-converter";
 import { type FindInTextToolsKeys } from "~/app/appStructure/root/texts/textsSubCategory/sentences/find-in-text";
 import { type RemoveToolsKeys } from "~/app/appStructure/root/texts/textsSubCategory/sentences/remove";
+import { type SortWordsToolsKeys } from "~/app/appStructure/root/texts/textsSubCategory/sentences/sort-words";
 
 import { type CategoryBase, type SubCategoryBase, type ToolBase } from "./app";
 
@@ -18,11 +19,12 @@ export type TextsSubCategoryKeys =
 
 export type TextsToolKeys =
   | LineBreaksToolsKeys
-  | SortToolsKeys
+  | SortLinesToolsKeys
   | AffixesToolsKeys
   | CaseConverterToolsKeys
   | RemoveToolsKeys
-  | FindInTextToolsKeys;
+  | FindInTextToolsKeys
+  | SortWordsToolsKeys;
 
 export interface TextsCategory extends CategoryBase {
   subCategories: Record<TextsSubCategoryKeys, TextsSubCategory>;

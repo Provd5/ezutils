@@ -19,13 +19,13 @@ export function textsPageTitle(
 
   if (subCategory) {
     const validSubCategory = subCategory as TextsSubCategoryKeys;
-    title = (APP_STRUCTURE as App).texts[validCategory].subCategories[
+    title = (APP_STRUCTURE.texts as App["texts"])[validCategory].subCategories[
       validSubCategory
     ].label;
     if (tool) {
       const validTool = tool as TextsToolKeys;
       title =
-        (APP_STRUCTURE as App).texts[validCategory].subCategories[
+        (APP_STRUCTURE.texts as App["texts"])[validCategory].subCategories[
           validSubCategory
         ].tools[validTool].label + ` < ${title}`;
     }

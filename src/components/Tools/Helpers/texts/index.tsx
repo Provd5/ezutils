@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { type FC } from "react";
 
 import { type TextsToolKeys } from "~/types/texts";
 
@@ -6,18 +6,18 @@ import {
   HelperAffixesAddPrefixes,
   HelperAffixesAddSuffixes,
   HelperAffixesInsertLineNumbering,
-} from "./texts/paragraphs/helper-affixes";
-import { HelperLineBreaksAddNewBreak } from "./texts/paragraphs/helper-line-breaks";
+} from "./paragraphs/helper-affixes";
+import { HelperLineBreaksAddNewBreak } from "./paragraphs/helper-line-breaks";
 import {
   HelperFindInTextFindAndCount,
   HelperFindInTextFindAndReplace,
-} from "./texts/sentences/helper-find-in-text";
+} from "./sentences/helper-find-in-text";
 
-interface HelpersProps {
+interface TextsHelpersProps {
   tool: TextsToolKeys;
 }
 
-export const Helpers: FC<HelpersProps> = ({ tool }) => {
+const TextsHelpers: FC<TextsHelpersProps> = ({ tool }) => {
   switch (tool) {
     case "addNewBreak":
       return <HelperLineBreaksAddNewBreak tool={tool} />;
@@ -36,3 +36,5 @@ export const Helpers: FC<HelpersProps> = ({ tool }) => {
       return null;
   }
 };
+
+export default TextsHelpers;

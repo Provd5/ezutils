@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 
 import { type AppDispatch, type AppState } from "~/app/store";
-import { newInput } from "~/features/input-slice";
-import { newOutput } from "~/features/output-slice";
+import { textsInputOutputConverter } from "~/converters/texts/texts-input-output-converter";
+import { newInput } from "~/features/texts/input-slice";
+import { DEBOUNCE_WAIT } from "~/utils/constants";
 import { validateTextsParams } from "~/utils/validate-texts-params";
 
-import { converter } from "../../../converters/converters";
 import { Label } from "../../ui/label";
 import { Textarea } from "../../ui/textarea";
 
@@ -24,23 +24,21 @@ export const TextsToolInput: FC<TextsToolInputProps> = ({ placeholder }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const changeInputValue = useDebouncedCallback((value: string) => {
-    const newValue = converter(textsTool, value);
-    dispatch(newOutput(newValue));
+    textsInputOutputConverter(dispatch, textsTool, value);
     dispatch(newInput(value));
-  }, 300);
+  }, DEBOUNCE_WAIT);
 
   useEffect(() => {
-    const newValue = converter(textsTool, inputValue);
-    dispatch(newOutput(newValue));
+    textsInputOutputConverter(dispatch, textsTool, inputValue);
 
     // eslint-disable-next-line
   }, [textsTool]);
 
   return (
     <div>
-      <Label htmlFor="tool-input">Input:</Label>
+      <Label htmlFor="TextsToolInput">Input:</Label>
       <Textarea
-        id="tool-input"
+        id="TextsToolInput"
         className="min-h-36"
         placeholder={placeholder}
         onChange={(e) => changeInputValue(e.target.value)}

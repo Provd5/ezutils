@@ -24,7 +24,7 @@ export const TextsNavLink: FC<TextsNavLinkProps> = ({ variant }) => {
       }
     >
       {variant.label}
-      <variant.Icon className="ml-1 size-4 shrink-0" />
+      <variant.Icon className="ml-1 size-4" />
     </NavLink>
   );
 };

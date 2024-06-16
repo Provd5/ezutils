@@ -1,11 +1,13 @@
 import remove from "./converter-remove";
 
 function camelCase(input: string): string {
-  const words = input.split(/(?<=\w)[-_ ](?=\w)|(?<=[a-z])(?=[A-Z])/);
+  const words = input.split(/(?<=\w)[-_ ](?=\w)|(?<=[a-z])(?=[A-Z])/g);
   return words
-    .map((word) => {
+    .map((word, index) => {
       return (
-        (word[0] ? word[0].toUpperCase() : "") + word.slice(1).toLowerCase()
+        (index !== 0
+          ? word[0]?.toUpperCase() || ""
+          : word[0]?.toLowerCase() || "") + word.slice(1).toLowerCase()
       );
     })
     .join("");
@@ -20,9 +22,7 @@ function pascalCase(input: string): string {
       );
       return words
         .map((word) => {
-          return (
-            (word[0] ? word[0].toUpperCase() : "") + word.slice(1).toLowerCase()
-          );
+          return (word[0]?.toUpperCase() || "") + word.slice(1).toLowerCase();
         })
         .join("");
     })
@@ -52,9 +52,7 @@ function titleCase(input: string): string {
       const words = line.split(/(?<=[\W ])(?=\w)/g);
       return words
         .map((word) => {
-          return (
-            (word[0] ? word[0].toUpperCase() : "") + word.slice(1).toLowerCase()
-          );
+          return (word[0]?.toUpperCase() || "") + word.slice(1).toLowerCase();
         })
         .join("");
     })
@@ -83,7 +81,7 @@ function sentence(input: string): string {
   function toTitleCase(sentences: string[]): string[] {
     const titleCase = sentences.map((sentence) => {
       const word = sentence.split(" ")[0];
-      const title = word[0] ? word[0].toUpperCase() : "";
+      const title = word[0]?.toUpperCase() || "";
 
       return title + sentence.slice(1);
     });
@@ -110,6 +108,18 @@ function sentence(input: string): string {
   }
 }
 
+function randomCase(input: string): string {
+  return input
+    .split("")
+    .map((char) => {
+      const randomCase = Math.random() < 0.5 ? "upperCase" : "lowerCase";
+      return randomCase === "upperCase"
+        ? char.toUpperCase()
+        : char.toLowerCase();
+    })
+    .join("");
+}
+
 export default {
   upperCase,
   lowerCase,
@@ -118,4 +128,5 @@ export default {
   pascalCase,
   snakeCase,
   sentence,
+  randomCase,
 };

@@ -1,13 +1,15 @@
-import { includeEmptyLines } from "../../settings/converter-include-empty-lines";
+import { elementIsChecked } from "~/utils/utils";
 
 function insertLineNumbering(input: string): string {
   const splitterValue = (
     document.getElementById(
-      "affixes-number-lines-helper",
+      "HelperAffixesInsertLineNumbering",
     ) as HTMLInputElement | null
   )?.value;
 
-  const shouldIncludeEmptyLines = includeEmptyLines();
+  const shouldIncludeEmptyLines = elementIsChecked(
+    "HelperTooltipCheckbox-includeEmptyLines",
+  );
   const lines = input.split("\n");
 
   let skipCount = -1;
@@ -25,17 +27,19 @@ function insertLineNumbering(input: string): string {
 function addPrefixes(input: string): string {
   const prefixValue = (
     document.getElementById(
-      "affixes-prefixes-helper",
+      "HelperAffixesAddPrefixes",
     ) as HTMLInputElement | null
   )?.value;
 
-  const shouldIncludeEmptyLines = includeEmptyLines();
+  const shouldIncludeEmptyLines = elementIsChecked(
+    "HelperTooltipCheckbox-includeEmptyLines",
+  );
 
   if (prefixValue) {
     const lines = input.split("\n");
     return lines
       .map((line) =>
-        shouldIncludeEmptyLines
+        !shouldIncludeEmptyLines
           ? line.trim() !== ""
             ? prefixValue + line
             : line
@@ -50,17 +54,19 @@ function addPrefixes(input: string): string {
 function addSuffixes(input: string): string {
   const suffixValue = (
     document.getElementById(
-      "affixes-suffixes-helper",
+      "HelperAffixesAddSuffixes",
     ) as HTMLInputElement | null
   )?.value;
 
-  const shouldIncludeEmptyLines = includeEmptyLines();
+  const shouldIncludeEmptyLines = elementIsChecked(
+    "HelperTooltipCheckbox-includeEmptyLines",
+  );
 
   if (suffixValue) {
     const lines = input.split("\n");
     return lines
       .map((line) =>
-        shouldIncludeEmptyLines
+        !shouldIncludeEmptyLines
           ? line.trim() !== ""
             ? line + suffixValue
             : line

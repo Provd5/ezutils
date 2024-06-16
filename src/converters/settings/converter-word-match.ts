@@ -1,6 +1,8 @@
 import escapeRegExp from "lodash.escaperegexp";
 
+import { TOOLTIP_CHECKBOX_NAME_BASE } from "~/components/Tools/Helpers/helper-tooltip-checkbox";
 import { wordMatchKeys } from "~/features/settings-slice";
+import { elementIsChecked } from "~/utils/utils";
 
 export function wordMatch(helperValue: string): RegExp {
   const wordMatchValues = {
@@ -10,12 +12,9 @@ export function wordMatch(helperValue: string): RegExp {
   };
 
   wordMatchKeys.map((key) => {
-    wordMatchValues[key] =
-      (
-        document.getElementById(
-          `settings-word-match-${key}`,
-        ) as HTMLInputElement | null
-      )?.checked || false;
+    wordMatchValues[key] = elementIsChecked(
+      `${TOOLTIP_CHECKBOX_NAME_BASE}-${key}`,
+    );
   });
 
   let regex: RegExp;

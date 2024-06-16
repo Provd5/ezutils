@@ -15,9 +15,9 @@ export const TextsToolOutput: FC<TextsToolOutputProps> = ({ placeholder }) => {
 
   return (
     <div>
-      <Label htmlFor="tool-output">Output:</Label>
+      <Label htmlFor="TextsToolOutput">Output:</Label>
       <Textarea
-        id="tool-output"
+        id="TextsToolOutput"
         className="min-h-36"
         placeholder={placeholder}
         value={outputValue}

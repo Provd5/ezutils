@@ -81,8 +81,9 @@ export const validateTextsParams: ValidateParams = (
     if (
       toolParam &&
       !Object.keys(
-        (APP_STRUCTURE as App).texts[categoryParam as TextsCategoryKeys]
-          .subCategories[subCategoryParam as TextsSubCategoryKeys].tools,
+        (APP_STRUCTURE.texts as App["texts"])[
+          categoryParam as TextsCategoryKeys
+        ].subCategories[subCategoryParam as TextsSubCategoryKeys].tools,
       ).includes(toolParam)
     ) {
       throw new Error("Tool not found");

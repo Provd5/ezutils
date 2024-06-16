@@ -7,13 +7,13 @@ import { type TextsToolKeys } from "~/types/texts";
 import { type AppDispatch, type AppState } from "~/app/store";
 import { Input } from "~/components/ui/Input";
 import { Label } from "~/components/ui/label";
-import { converter } from "~/converters/converters";
-import { newOutput } from "~/features/output-slice";
+import { textsInputOutputConverter } from "~/converters/texts/texts-input-output-converter";
 import {
   newPrefix,
   newSplitter,
   newSuffix,
 } from "~/features/texts/paragraphs/affixes-slice";
+import { DEBOUNCE_WAIT } from "~/utils/constants";
 
 import { HelperIncludeEmptyLines } from "../../settings/helper-include-empty-lines";
 
@@ -33,20 +33,19 @@ export const HelperAffixesInsertLineNumbering: FC<AffixesProps> = ({
   const changeOutputValue = useDebouncedCallback(
     (value: string | undefined) => {
       value && dispatch(newSplitter(value));
-      const newOutputValue = converter(tool, inputValue);
-      dispatch(newOutput(newOutputValue));
+      textsInputOutputConverter(dispatch, tool, inputValue);
     },
-    300,
+    DEBOUNCE_WAIT,
   );
 
   return (
     <div>
-      <Label htmlFor="affixes-number-lines-helper">Splitter:</Label>
+      <Label htmlFor="HelperAffixesInsertLineNumbering">Splitter:</Label>
       <div className="flex flex-col gap-1.5">
         <Input
           autoComplete="off"
           className="max-w-xs"
-          id="affixes-number-lines-helper"
+          id="HelperAffixesInsertLineNumbering"
           defaultValue={splitter}
           onChange={(e) => changeOutputValue(e.target.value)}
         />
@@ -64,20 +63,19 @@ export const HelperAffixesAddPrefixes: FC<AffixesProps> = ({ tool }) => {
   const changeOutputValue = useDebouncedCallback(
     (value: string | undefined) => {
       value && dispatch(newPrefix(value));
-      const newOutputValue = converter(tool, inputValue);
-      dispatch(newOutput(newOutputValue));
+      textsInputOutputConverter(dispatch, tool, inputValue);
     },
-    300,
+    DEBOUNCE_WAIT,
   );
 
   return (
     <div>
-      <Label htmlFor="affixes-prefixes-helper">Add prefix:</Label>
+      <Label htmlFor="HelperAffixesAddPrefixes">Add prefix:</Label>
       <div className="flex flex-col gap-1.5">
         <Input
           autoComplete="off"
           className="max-w-xs"
-          id="affixes-prefixes-helper"
+          id="HelperAffixesAddPrefixes"
           defaultValue={prefix}
           onChange={(e) => changeOutputValue(e.target.value)}
         />
@@ -95,20 +93,19 @@ export const HelperAffixesAddSuffixes: FC<AffixesProps> = ({ tool }) => {
   const changeOutputValue = useDebouncedCallback(
     (value: string | undefined) => {
       value && dispatch(newSuffix(value));
-      const newOutputValue = converter(tool, inputValue);
-      dispatch(newOutput(newOutputValue));
+      textsInputOutputConverter(dispatch, tool, inputValue);
     },
-    300,
+    DEBOUNCE_WAIT,
   );
 
   return (
     <div>
-      <Label htmlFor="affixes-suffixes-helper">Add suffix:</Label>
+      <Label htmlFor="HelperAffixesAddSuffixes">Add suffix:</Label>
       <div className="flex flex-col gap-1.5">
         <Input
           autoComplete="off"
           className="max-w-xs"
-          id="affixes-suffixes-helper"
+          id="HelperAffixesAddSuffixes"
           defaultValue={suffix}
           onChange={(e) => changeOutputValue(e.target.value)}
         />

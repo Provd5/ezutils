@@ -23,8 +23,9 @@ export const TextsSubNav: FC = ({}) => {
   );
 
   const tools: TextsTool[] = Object.values(
-    (APP_STRUCTURE as App).texts[textsCategory].subCategories[textsSubCategory]
-      .tools,
+    (APP_STRUCTURE.texts as App["texts"])[textsCategory].subCategories[
+      textsSubCategory
+    ].tools,
   );
 
   return (

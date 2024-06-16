@@ -50,12 +50,12 @@ export const CopyOutput: FC = ({}) => {
           >
             {copyStatus ? (
               copyStatus.success ? (
-                <FaCircleCheck className="size-5 shrink-0 animate-show" />
+                <FaCircleCheck className="size-5 animate-show" />
               ) : (
-                <FaCircleXmark className="size-5 shrink-0 animate-show" />
+                <FaCircleXmark className="size-5 animate-show" />
               )
             ) : (
-              <MdOutlineContentCopy className="group-hover:scale-11 size-5 shrink-0 animate-show transition-transform group-hover:rotate-6" />
+              <MdOutlineContentCopy className="group-hover:scale-11 size-5 animate-show transition-transform group-hover:rotate-6" />
             )}
             <span className="ml-1">Copy result!</span>
           </Button>

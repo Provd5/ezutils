@@ -24,19 +24,19 @@ export const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
-    switchIncludeEmpty: (state, action: PayloadAction<boolean>) => {
+    toggleIncludeEmpty: (state, action: PayloadAction<boolean>) => {
       state.includeEmptyLines = action.payload;
       return state;
     },
-    switchWordMatchCase: (state, action: PayloadAction<boolean>) => {
+    toggleWordMatchCase: (state, action: PayloadAction<boolean>) => {
       state.wordMatch.case = action.payload;
       return state;
     },
-    switchWordMatchSentence: (state, action: PayloadAction<boolean>) => {
+    toggleWordMatchSentence: (state, action: PayloadAction<boolean>) => {
       state.wordMatch.sentence = action.payload;
       return state;
     },
-    switchWordMatchRegex: (state, action: PayloadAction<boolean>) => {
+    toggleWordMatchRegex: (state, action: PayloadAction<boolean>) => {
       state.wordMatch.regex = action.payload;
       return state;
     },
@@ -44,10 +44,10 @@ export const settingsSlice = createSlice({
 });
 
 export const {
-  switchIncludeEmpty,
-  switchWordMatchCase,
-  switchWordMatchSentence,
-  switchWordMatchRegex,
+  toggleIncludeEmpty,
+  toggleWordMatchCase,
+  toggleWordMatchSentence,
+  toggleWordMatchRegex,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

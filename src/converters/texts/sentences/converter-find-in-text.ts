@@ -5,7 +5,7 @@ function findAndReplace(input: string): string {
   const toBeReplaced =
     (
       document.getElementById(
-        "find-in-text-replace-helper-to-be-replaced",
+        "HelperFindInTextFindAndReplace-to-replace",
       ) as HTMLInputElement | null
     )?.value || "";
 
@@ -21,7 +21,7 @@ function findAndReplace(input: string): string {
   const replaceWithValue =
     (
       document.getElementById(
-        "find-in-text-replace-helper-replace-with",
+        "HelperFindInTextFindAndReplace-replace-with",
       ) as HTMLInputElement | null
     )?.value || "";
 
@@ -32,7 +32,7 @@ function findAndCount(input: string): string {
   const findValue =
     (
       document.getElementById(
-        "find-in-text-find-helper",
+        "HelperFindInTextFindAndCount",
       ) as HTMLInputElement | null
     )?.value || "";
 
@@ -60,7 +60,7 @@ function findLinks(input: string): string {
   const regex =
     /\b(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\b/g;
   const matches = input.match(regex);
-  return matches ? matches.join("\n") : "";
+  return matches ? matches.join("\n") : "Nothing found";
 }
 
 function findQuotes(input: string): string {
@@ -69,7 +69,7 @@ function findQuotes(input: string): string {
   const matches = input.match(regex);
   return matches
     ? matches.map((match) => match.replace(/«|»|“|”|"|'|`/g, "")).join("\n")
-    : "";
+    : "Nothing found";
 }
 
 function findLetters(input: string): string {

@@ -1,13 +1,14 @@
 import { type TextsToolKeys } from "~/types/texts";
 
-import affixes from "./texts/paragraphs/converter-affixes";
-import lineBreaks from "./texts/paragraphs/converter-line-breaks";
-import sort from "./texts/paragraphs/converter-sort";
-import caseConverter from "./texts/sentences/converter-case-converter";
-import findInText from "./texts/sentences/converter-find-in-text";
-import remove from "./texts/sentences/converter-remove";
+import affixes from "./paragraphs/converter-affixes";
+import lineBreaks from "./paragraphs/converter-line-breaks";
+import sortLines from "./paragraphs/converter-sort-lines";
+import caseConverter from "./sentences/converter-case-converter";
+import findInText from "./sentences/converter-find-in-text";
+import remove from "./sentences/converter-remove";
+import sortWords from "./sentences/converter-sort-words";
 
-export const converter = (tool: TextsToolKeys, value: string) => {
+const textsConverter = (tool: TextsToolKeys, value: string) => {
   let newValue: string;
 
   switch (tool) {
@@ -33,13 +34,13 @@ export const converter = (tool: TextsToolKeys, value: string) => {
       newValue = lineBreaks.removeExcessBreaks(value);
       break;
     case "reverseLines":
-      newValue = sort.reverseLines(value);
+      newValue = sortLines.reverseLines(value);
       break;
     case "shuffleLines":
-      newValue = sort.shuffleLines(value);
+      newValue = sortLines.shuffleLines(value);
       break;
-    case "sortAsc":
-      newValue = sort.sortAsc(value);
+    case "sortLinesAsc":
+      newValue = sortLines.sortLinesAsc(value);
       break;
     case "camelCase":
       newValue = caseConverter.camelCase(value);
@@ -61,6 +62,9 @@ export const converter = (tool: TextsToolKeys, value: string) => {
       break;
     case "titleCase":
       newValue = caseConverter.titleCase(value);
+      break;
+    case "randomCase":
+      newValue = caseConverter.randomCase(value);
       break;
     case "findAndReplace":
       newValue = findInText.findAndReplace(value);
@@ -92,9 +96,26 @@ export const converter = (tool: TextsToolKeys, value: string) => {
     case "removeSpaces":
       newValue = remove.removeSpaces(value);
       break;
+    case "reverseSentence":
+      newValue = sortWords.reverseSentence(value);
+      break;
+    case "reverseWords":
+      newValue = sortWords.reverseWords(value);
+      break;
+    case "shuffleLetters":
+      newValue = sortWords.shuffleLetters(value);
+      break;
+    case "shuffleWords":
+      newValue = sortWords.shuffleWords(value);
+      break;
+    case "sortWordsAsc":
+      newValue = sortWords.sortWordsAsc(value);
+      break;
     default:
       throw new Error("Invalid tool");
   }
 
   return newValue;
 };
+
+export default textsConverter;

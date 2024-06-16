@@ -6,4 +6,12 @@ export const COLORS_CATEGORY = {
   href: COLORS_ROUTE_BASE,
   label: "Colors converter",
   Icon: VscSymbolColor,
+  tools: {
+    colorsConverter: {
+      href: COLORS_ROUTE_BASE,
+      label: "Convert colors",
+      description:
+        "Paste color and convert it between RGB, HSL, HWB, and hexadecimal",
+    },
+  },
 } as const;

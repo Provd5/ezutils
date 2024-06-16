@@ -27,7 +27,7 @@ export const Hamburger: FC = ({}) => {
           size={"icon"}
           className="ml-auto mt-1.5 rounded-r-none md:hidden"
         >
-          <RiMenuFoldLine className="size-5 shrink-0" />
+          <RiMenuFoldLine className="size-5" />
         </Button>
       </SheetTrigger>
       <SheetContent>

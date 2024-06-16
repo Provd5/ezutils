@@ -59,5 +59,12 @@ export const CASE_CONVERTER_SUBCATEGORY = {
       inputExample: `lorem ipsum . dolor,SIT   amet`,
       outputExample: `Lorem ipsum. Dolor, SIT amet`,
     },
+    randomCase: {
+      href: `${CASE_CONVERTER_ROUTE_BASE}/randomCase`,
+      label: "rAnDoM",
+      description: `Change the case of letters to random`,
+      inputExample: `Lorem ipsum. Dolor, SIT amet`,
+      outputExample: `lOrEm iPsUm. DOlOr, siT aMEt`,
+    },
   },
 } as const;

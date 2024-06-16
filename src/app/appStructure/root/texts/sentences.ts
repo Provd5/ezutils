@@ -4,6 +4,7 @@ import { SENTENCES_ROUTE_BASE } from "../../routes";
 import { CASE_CONVERTER_SUBCATEGORY } from "./textsSubCategory/sentences/case-converter";
 import { FIND_IN_TEXT_SUBCATEGORY } from "./textsSubCategory/sentences/find-in-text";
 import { REMOVE_SUBCATEGORY } from "./textsSubCategory/sentences/remove";
+import { SORT_WORDS_SUBCATEGORY } from "./textsSubCategory/sentences/sort-words";
 
 export type SentencesSubCategoriesKeys =
   keyof (typeof SENTENCES_CATEGORY)["subCategories"];
@@ -16,5 +17,6 @@ export const SENTENCES_CATEGORY = {
     caseConverter: CASE_CONVERTER_SUBCATEGORY,
     remove: REMOVE_SUBCATEGORY,
     findInText: FIND_IN_TEXT_SUBCATEGORY,
+    sortWords: SORT_WORDS_SUBCATEGORY,
   },
 } as const;

@@ -12,8 +12,8 @@ export const RootNav: FC = ({}) => {
       <RootNavLink variant={APP_STRUCTURE.home} />
       <h1 className="text-sm text-muted-foreground">Categories</h1>
       <div className="flex flex-col gap-1">
-        <RootNavLink variant={APP_STRUCTURE.texts.paragraphs} />
         <RootNavLink variant={APP_STRUCTURE.texts.sentences} />
+        <RootNavLink variant={APP_STRUCTURE.texts.paragraphs} />
         <RootNavLink variant={APP_STRUCTURE.colors} />
       </div>
     </nav>

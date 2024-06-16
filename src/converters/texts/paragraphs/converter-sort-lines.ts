@@ -1,4 +1,4 @@
-function sortAsc(input: string): string {
+function sortLinesAsc(input: string): string {
   const lines = input.split("\n").filter((line) => line.trim() !== "");
   lines.sort((a, b) => {
     const numA = parseInt(a.match(/^\d+/)?.[0] || "", 10);
@@ -31,4 +31,4 @@ function shuffleLines(input: string): string {
   return lines.join("\n");
 }
 
-export default { sortAsc, reverseLines, shuffleLines };
+export default { sortLinesAsc, reverseLines, shuffleLines };

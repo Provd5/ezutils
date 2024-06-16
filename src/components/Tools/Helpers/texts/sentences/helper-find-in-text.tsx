@@ -7,12 +7,12 @@ import { type TextsToolKeys } from "~/types/texts";
 import { type AppDispatch, type AppState } from "~/app/store";
 import { Input } from "~/components/ui/Input";
 import { Label } from "~/components/ui/label";
-import { converter } from "~/converters/converters";
-import { newOutput } from "~/features/output-slice";
+import { textsInputOutputConverter } from "~/converters/texts/texts-input-output-converter";
 import {
   newReplaceWith,
-  newToBeReplaced,
+  newToReplace,
 } from "~/features/texts/sentences/find-in-text-slice";
+import { DEBOUNCE_WAIT } from "~/utils/constants";
 
 import { HelperWordMatch } from "../../settings/helper-word-match";
 
@@ -30,46 +30,45 @@ export const HelperFindInTextFindAndReplace: FC<FindInTextProps> = ({
   const dispatch = useDispatch<AppDispatch>();
 
   const changeOutputValue = useDebouncedCallback(
-    (input?: "toBeReplaced" | "replaceWith", value?: string) => {
+    (input?: "toReplace" | "replaceWith", value?: string) => {
       if (value) {
         switch (input) {
-          case "toBeReplaced":
-            dispatch(newToBeReplaced(value));
+          case "toReplace":
+            dispatch(newToReplace(value));
             break;
           case "replaceWith":
             dispatch(newReplaceWith(value));
         }
       }
 
-      const newOutputValue = converter(tool, inputValue);
-      dispatch(newOutput(newOutputValue));
+      textsInputOutputConverter(dispatch, tool, inputValue);
     },
-    300,
+    DEBOUNCE_WAIT,
   );
 
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex flex-col gap-x-1.5 sm:flex-row">
         <div>
-          <Label htmlFor="find-in-text-replace-helper-to-be-replaced">
+          <Label htmlFor="HelperFindInTextFindAndReplace-to-replace">
             Text to replace:
           </Label>
           <Input
             autoComplete="off"
             className="max-w-xs"
-            id="find-in-text-replace-helper-to-be-replaced"
-            defaultValue={findInTextHelper.toBeReplaced}
-            onChange={(e) => changeOutputValue("toBeReplaced", e.target.value)}
+            id="HelperFindInTextFindAndReplace-to-replace"
+            defaultValue={findInTextHelper.toReplace}
+            onChange={(e) => changeOutputValue("toReplace", e.target.value)}
           />
         </div>
         <div>
-          <Label htmlFor="find-in-text-replace-helper-replace-with">
+          <Label htmlFor="HelperFindInTextFindAndReplace-replace-with">
             Replace with:
           </Label>
           <Input
             autoComplete="off"
             className="max-w-xs"
-            id="find-in-text-replace-helper-replace-with"
+            id="HelperFindInTextFindAndReplace-replace-with"
             defaultValue={findInTextHelper.replaceWith}
             onChange={(e) => changeOutputValue("replaceWith", e.target.value)}
           />
@@ -88,21 +87,20 @@ export const HelperFindInTextFindAndCount: FC<FindInTextProps> = ({ tool }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const changeOutputValue = useDebouncedCallback((value?: string) => {
-    value && dispatch(newToBeReplaced(value));
+    value && dispatch(newToReplace(value));
 
-    const newOutputValue = converter(tool, inputValue);
-    dispatch(newOutput(newOutputValue));
-  }, 300);
+    textsInputOutputConverter(dispatch, tool, inputValue);
+  }, DEBOUNCE_WAIT);
 
   return (
     <div className="flex flex-col gap-1.5">
       <div>
-        <Label htmlFor="find-in-text-find-helper">Find in text:</Label>
+        <Label htmlFor="HelperFindInTextFindAndCount">Find in text:</Label>
         <Input
           autoComplete="off"
           className="max-w-xs"
-          id="find-in-text-find-helper"
-          defaultValue={findInTextHelper.toBeReplaced}
+          id="HelperFindInTextFindAndCount"
+          defaultValue={findInTextHelper.toReplace}
           onChange={(e) => changeOutputValue(e.target.value)}
         />
       </div>

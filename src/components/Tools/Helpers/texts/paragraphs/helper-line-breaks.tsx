@@ -8,13 +8,13 @@ import { type AppDispatch, type AppState } from "~/app/store";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/Input";
 import { Label } from "~/components/ui/label";
-import { converter } from "~/converters/converters";
-import { newOutput } from "~/features/output-slice";
+import { textsInputOutputConverter } from "~/converters/texts/texts-input-output-converter";
 import {
   newNeedle,
   newWhere,
   type WhereToBreak,
 } from "~/features/texts/paragraphs/line-breaks-slice";
+import { DEBOUNCE_WAIT } from "~/utils/constants";
 
 interface LineBreaksProps {
   tool: TextsToolKeys;
@@ -31,10 +31,9 @@ export const HelperLineBreaksAddNewBreak: FC<LineBreaksProps> = ({ tool }) => {
   const changeOutputValue = useDebouncedCallback(
     (value: string | undefined) => {
       value && dispatch(newNeedle(value));
-      const newOutputValue = converter(tool, inputValue);
-      dispatch(newOutput(newOutputValue));
+      textsInputOutputConverter(dispatch, tool, inputValue);
     },
-    300,
+    DEBOUNCE_WAIT,
   );
 
   const changeWhereToBreak = (whereValue: WhereToBreak) => {
@@ -44,18 +43,18 @@ export const HelperLineBreaksAddNewBreak: FC<LineBreaksProps> = ({ tool }) => {
 
   return (
     <div>
-      <Label htmlFor="line-breaks-add-helper-needle">Needle:</Label>
+      <Label htmlFor="HelperLineBreaksAddNewBreak-needle">Needle:</Label>
       <div className="flex flex-col items-center gap-3 sm:flex-row">
         <Input
           autoComplete="off"
           className="max-w-xs"
-          id="line-breaks-add-helper-needle"
+          id="HelperLineBreaksAddNewBreak-needle"
           defaultValue={needle}
           onChange={(e) => changeOutputValue(e.target.value)}
         />
         <input
           className="hidden"
-          id="line-breaks-add-helper-where"
+          id="HelperLineBreaksAddNewBreak-where"
           readOnly
           value={where}
         />

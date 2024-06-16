@@ -26,7 +26,7 @@ export const RootNavLink: FC<RootNavLinkProps> = ({ variant }) => {
       }
     >
       {variant.label}
-      <variant.Icon className="ml-1 size-5 shrink-0" />
+      <variant.Icon className="ml-1 size-5" />
     </NavLink>
   );
 };

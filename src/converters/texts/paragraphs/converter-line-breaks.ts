@@ -5,12 +5,12 @@ import remove from "../sentences/converter-remove";
 function addNewBreak(input: string): string {
   const needleValue = (
     document.getElementById(
-      "line-breaks-add-helper-needle",
+      "HelperLineBreaksAddNewBreak-needle",
     ) as HTMLInputElement | null
   )?.value;
   const whereValue = (
     document.getElementById(
-      "line-breaks-add-helper-where",
+      "HelperLineBreaksAddNewBreak-where",
     ) as HTMLInputElement | null
   )?.value as WhereToBreak;
 
