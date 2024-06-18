@@ -11,9 +11,9 @@ import {
 import "./index.css";
 import ColorsToolPage from "./app/pages/ColorsToolPage";
 import ErrorPage from "./app/pages/ErrorPage";
-import TextsCategoryLayout from "./app/pages/layouts/CategoryLayout";
 import RootLayout from "./app/pages/layouts/RootLayout";
-import TextsSubCategoryLayout from "./app/pages/layouts/SubCategoryLayout";
+import TextsCategoryLayout from "./app/pages/layouts/TextsCategoryLayout";
+import TextsSubCategoryLayout from "./app/pages/layouts/TextsSubCategoryLayout";
 import TextsToolPage from "./app/pages/TextsToolPage";
 import { store } from "./app/store";
 import { ThemeProvider } from "./components/ui/theme-provider";
