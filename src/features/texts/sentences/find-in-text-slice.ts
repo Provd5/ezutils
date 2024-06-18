@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-interface FindInTextState {
+export interface FindInTextState {
   toReplace: string;
   replaceWith: string;
 }
@@ -10,7 +10,7 @@ const initialState: FindInTextState = {
   replaceWith: "",
 };
 
-export const findInTextSlice = createSlice({
+const findInTextSlice = createSlice({
   name: "findInTextHelper",
   initialState,
   reducers: {

@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-export const outputSlice = createSlice({
+const outputSlice = createSlice({
   name: "output",
   initialState: "",
   reducers: {

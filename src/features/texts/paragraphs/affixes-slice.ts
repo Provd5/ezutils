@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-interface AffixesState {
+export interface AffixesState {
   splitter: string;
   prefix: string;
   suffix: string;
@@ -12,7 +12,7 @@ const initialState: AffixesState = {
   suffix: ".",
 };
 
-export const affixesSlice = createSlice({
+const affixesSlice = createSlice({
   name: "affixesHelper",
   initialState,
   reducers: {

@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export type WhereToBreak = "after" | "before" | "instead";
 
-interface LineBreaksState {
+export interface LineBreaksState {
   needle: string;
   where: WhereToBreak;
 }
@@ -12,7 +12,7 @@ const initialState: LineBreaksState = {
   where: "after",
 };
 
-export const lineBreaksSlice = createSlice({
+const lineBreaksSlice = createSlice({
   name: "lineBreaksHelper",
   initialState,
   reducers: {

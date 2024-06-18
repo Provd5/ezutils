@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 export type ColorAlpha = "hide" | "afterComma" | "afterSlash";
 export type ColorFormat = "onlyNumbers" | "withCommas" | "full";
 
-interface ColorsConverterState {
+export interface ColorsConverterState {
   HSL: string;
   RGB: string;
   HWB: string;
@@ -25,7 +25,7 @@ const initialState: ColorsConverterState = {
   alpha: "hide",
 };
 
-export const colorsConverterSlice = createSlice({
+const colorsConverterSlice = createSlice({
   name: "colorsConverter",
   initialState,
   reducers: {

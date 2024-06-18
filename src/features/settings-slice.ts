@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export const wordMatchKeys = ["case", "sentence", "regex"] as const;
 
-interface SettingsState {
+export interface SettingsState {
   includeEmptyLines: boolean;
   wordMatch: {
     case: boolean;
@@ -20,7 +20,7 @@ const initialState: SettingsState = {
   },
 };
 
-export const settingsSlice = createSlice({
+const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {

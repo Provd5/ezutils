@@ -12,7 +12,10 @@ const config = {
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: path.join(__dirname, "tsconfig.json"),
+    project: [
+      path.join(__dirname, "tsconfig.app.json"),
+      path.join(__dirname, "tsconfig.node.json"),
+    ],
   },
   plugins: [
     "react-refresh",
