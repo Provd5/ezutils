@@ -14,7 +14,7 @@ import {
 import { HelperTooltipCheckbox } from "../helper-tooltip-checkbox";
 
 interface WordMatchHelperProps {
-  debouncedFunction: DebouncedState<(arg?: undefined) => void>;
+  debouncedFunction: DebouncedState<(arg?: unknown) => void>;
 }
 
 type WordMatchKeysType = (typeof wordMatchKeys)[number];

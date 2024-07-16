@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { type FC, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -7,13 +7,14 @@ import { type TextsToolKeys } from "~/types/texts";
 import { type AppDispatch, type AppState } from "~/app/store";
 import { Input } from "~/components/ui/Input";
 import { Label } from "~/components/ui/label";
-import { textsInputOutputConverter } from "~/converters/texts/texts-input-output-converter";
 import {
   newReplaceWith,
   newToReplace,
 } from "~/features/texts/sentences/find-in-text-slice";
+import { useConvertText } from "~/hooks/useConvertText";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
 
+import { HelpersRefsContext } from "../../helpers-refs-provider";
 import { HelperWordMatch } from "../../settings/helper-word-match";
 
 interface FindInTextProps {
@@ -23,11 +24,15 @@ interface FindInTextProps {
 export const HelperFindInTextFindAndReplace: FC<FindInTextProps> = ({
   tool,
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const findInTextHelper = useSelector(
     (state: AppState) => state.findInTextHelper,
   );
   const inputValue = useSelector((state: AppState) => state.input);
-  const dispatch = useDispatch<AppDispatch>();
+
+  const { addRef } = useContext(HelpersRefsContext);
+  const { convertTextOutput } = useConvertText();
 
   const changeOutputValue = useDebouncedCallback(
     (input?: "toReplace" | "replaceWith", value?: string) => {
@@ -41,7 +46,7 @@ export const HelperFindInTextFindAndReplace: FC<FindInTextProps> = ({
         }
       }
 
-      textsInputOutputConverter(dispatch, tool, inputValue);
+      convertTextOutput(tool, inputValue);
     },
     DEBOUNCE_WAIT,
   );
@@ -50,25 +55,27 @@ export const HelperFindInTextFindAndReplace: FC<FindInTextProps> = ({
     <div className="flex flex-col gap-1.5">
       <div className="flex flex-col gap-x-1.5 sm:flex-row">
         <div>
-          <Label htmlFor="HelperFindInTextFindAndReplace-to-replace">
+          <Label htmlFor="HelperFindInTextFindAndReplaceTo">
             Text to replace:
           </Label>
           <Input
+            ref={(el) => addRef("HelperFindInTextFindAndReplaceTo", el)}
             autoComplete="off"
             className="max-w-xs"
-            id="HelperFindInTextFindAndReplace-to-replace"
+            id="HelperFindInTextFindAndReplaceTo"
             defaultValue={findInTextHelper.toReplace}
             onChange={(e) => changeOutputValue("toReplace", e.target.value)}
           />
         </div>
         <div>
-          <Label htmlFor="HelperFindInTextFindAndReplace-replace-with">
+          <Label htmlFor="HelperFindInTextFindAndReplaceWith">
             Replace with:
           </Label>
           <Input
+            ref={(el) => addRef("HelperFindInTextFindAndReplaceWith", el)}
             autoComplete="off"
             className="max-w-xs"
-            id="HelperFindInTextFindAndReplace-replace-with"
+            id="HelperFindInTextFindAndReplaceWith"
             defaultValue={findInTextHelper.replaceWith}
             onChange={(e) => changeOutputValue("replaceWith", e.target.value)}
           />
@@ -80,16 +87,20 @@ export const HelperFindInTextFindAndReplace: FC<FindInTextProps> = ({
 };
 
 export const HelperFindInTextFindAndCount: FC<FindInTextProps> = ({ tool }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const findInTextHelper = useSelector(
     (state: AppState) => state.findInTextHelper,
   );
   const inputValue = useSelector((state: AppState) => state.input);
-  const dispatch = useDispatch<AppDispatch>();
+
+  const { addRef } = useContext(HelpersRefsContext);
+  const { convertTextOutput } = useConvertText();
 
   const changeOutputValue = useDebouncedCallback((value?: string) => {
     value && dispatch(newToReplace(value));
 
-    textsInputOutputConverter(dispatch, tool, inputValue);
+    convertTextOutput(tool, inputValue);
   }, DEBOUNCE_WAIT);
 
   return (
@@ -97,6 +108,7 @@ export const HelperFindInTextFindAndCount: FC<FindInTextProps> = ({ tool }) => {
       <div>
         <Label htmlFor="HelperFindInTextFindAndCount">Find in text:</Label>
         <Input
+          ref={(el) => addRef("HelperFindInTextFindAndCount", el)}
           autoComplete="off"
           className="max-w-xs"
           id="HelperFindInTextFindAndCount"

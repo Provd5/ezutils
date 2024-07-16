@@ -9,7 +9,7 @@ import { toggleIncludeEmpty } from "~/features/settings-slice";
 import { HelperTooltipCheckbox } from "../helper-tooltip-checkbox";
 
 interface IncludeEmptyLinesHelperProps {
-  debouncedFunction: DebouncedState<(arg?: undefined) => void>;
+  debouncedFunction: DebouncedState<(arg?: unknown) => void>;
 }
 
 export const HelperIncludeEmptyLines: FC<IncludeEmptyLinesHelperProps> = ({

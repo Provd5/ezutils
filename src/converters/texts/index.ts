@@ -1,5 +1,7 @@
 import { type TextsToolKeys } from "~/types/texts";
 
+import { type HelpersRefsContextType } from "~/components/Tools/Helpers/helpers-refs-provider";
+
 import affixes from "./paragraphs/converter-affixes";
 import lineBreaks from "./paragraphs/converter-line-breaks";
 import sortLines from "./paragraphs/converter-sort-lines";
@@ -8,21 +10,25 @@ import findInText from "./sentences/converter-find-in-text";
 import remove from "./sentences/converter-remove";
 import sortWords from "./sentences/converter-sort-words";
 
-const textsConverter = (tool: TextsToolKeys, value: string) => {
+const textsConverter = (
+  tool: TextsToolKeys,
+  value: string,
+  getRefValue: HelpersRefsContextType["getRefValue"],
+) => {
   let newValue: string;
 
   switch (tool) {
     case "insertLineNumbering":
-      newValue = affixes.insertLineNumbering(value);
+      newValue = affixes.insertLineNumbering(value, getRefValue);
       break;
     case "addPrefixes":
-      newValue = affixes.addPrefixes(value);
+      newValue = affixes.addPrefixes(value, getRefValue);
       break;
     case "addSuffixes":
-      newValue = affixes.addSuffixes(value);
+      newValue = affixes.addSuffixes(value, getRefValue);
       break;
     case "addNewBreak":
-      newValue = lineBreaks.addNewBreak(value);
+      newValue = lineBreaks.addNewBreak(value, getRefValue);
       break;
     case "removeBreaks":
       newValue = lineBreaks.removeBreaks(value);
@@ -67,10 +73,10 @@ const textsConverter = (tool: TextsToolKeys, value: string) => {
       newValue = caseConverter.randomCase(value);
       break;
     case "findAndReplace":
-      newValue = findInText.findAndReplace(value);
+      newValue = findInText.findAndReplace(value, getRefValue);
       break;
     case "findAndCount":
-      newValue = findInText.findAndCount(value);
+      newValue = findInText.findAndCount(value, getRefValue);
       break;
     case "findLetters":
       newValue = findInText.findLetters(value);

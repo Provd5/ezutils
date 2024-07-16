@@ -24,9 +24,3 @@ export const errorHandler = (error: unknown): string => {
 export const decimalRound = (n: number): number => {
   return Math.round(n * 10) / 10;
 };
-
-export const elementIsChecked = (id: string): boolean => {
-  const checkbox = document.getElementById(id) as HTMLInputElement | null;
-
-  return checkbox?.checked || false;
-};

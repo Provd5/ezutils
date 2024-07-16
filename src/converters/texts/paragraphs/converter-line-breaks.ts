@@ -1,20 +1,15 @@
-import { type WhereToBreak } from "~/features/texts/paragraphs/line-breaks-slice";
+import { type HelpersRefsContextType } from "~/components/Tools/Helpers/helpers-refs-provider";
 
 import remove from "../sentences/converter-remove";
 
-function addNewBreak(input: string): string {
-  const needleValue = (
-    document.getElementById(
-      "HelperLineBreaksAddNewBreak-needle",
-    ) as HTMLInputElement | null
-  )?.value;
-  const whereValue = (
-    document.getElementById(
-      "HelperLineBreaksAddNewBreak-where",
-    ) as HTMLInputElement | null
-  )?.value as WhereToBreak;
+function addNewBreak(
+  input: string,
+  getRefValue: HelpersRefsContextType["getRefValue"],
+): string {
+  const needleValue = getRefValue("HelperLineBreaksAddNewBreakNeedle");
+  const whereValue = getRefValue("HelperLineBreaksAddNewBreakWhere");
 
-  if (needleValue && whereValue) {
+  if (typeof needleValue === "string" && typeof whereValue === "string") {
     const regex = new RegExp(needleValue, "g");
 
     let newInput = input;
