@@ -1,35 +1,39 @@
-import { type FC, useEffect } from "react";
+import { type FC, useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 
 import { type AppDispatch, type AppState } from "~/app/store";
-import { textsInputOutputConverter } from "~/converters/texts/texts-input-output-converter";
 import { newInput } from "~/features/texts/input-slice";
+import { useConvertText } from "~/hooks/useConvertText";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
 import { validateTextsParams } from "~/utils/validate-texts-params";
 
 import { Label } from "../../ui/label";
 import { Textarea } from "../../ui/textarea";
+import { HelpersRefsContext } from "../Helpers/helpers-refs-provider";
 
 interface TextsToolInputProps {
   placeholder: string;
 }
 
 export const TextsToolInput: FC<TextsToolInputProps> = ({ placeholder }) => {
-  const params = useParams();
-  const { textsTool } = validateTextsParams("textsTool", params);
-
   const inputValue = useSelector((state: AppState) => state.input);
   const dispatch = useDispatch<AppDispatch>();
 
+  const params = useParams();
+  const { textsTool } = validateTextsParams("textsTool", params);
+
+  const { addRef } = useContext(HelpersRefsContext);
+  const { convertTextOutput } = useConvertText();
+
   const changeInputValue = useDebouncedCallback((value: string) => {
-    textsInputOutputConverter(dispatch, textsTool, value);
+    convertTextOutput(textsTool, value);
     dispatch(newInput(value));
   }, DEBOUNCE_WAIT);
 
   useEffect(() => {
-    textsInputOutputConverter(dispatch, textsTool, inputValue);
+    convertTextOutput(textsTool, inputValue);
 
     // eslint-disable-next-line
   }, [textsTool]);
@@ -38,6 +42,7 @@ export const TextsToolInput: FC<TextsToolInputProps> = ({ placeholder }) => {
     <div>
       <Label htmlFor="TextsToolInput">Input:</Label>
       <Textarea
+        ref={(el) => addRef("TextsToolInput", el)}
         id="TextsToolInput"
         className="min-h-36"
         placeholder={placeholder}

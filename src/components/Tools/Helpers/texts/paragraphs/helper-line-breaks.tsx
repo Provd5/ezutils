@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { type FC, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -8,30 +8,36 @@ import { type AppDispatch, type AppState } from "~/app/store";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/Input";
 import { Label } from "~/components/ui/label";
-import { textsInputOutputConverter } from "~/converters/texts/texts-input-output-converter";
 import {
   newNeedle,
   newWhere,
   type WhereToBreak,
 } from "~/features/texts/paragraphs/line-breaks-slice";
+import { useConvertText } from "~/hooks/useConvertText";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
+
+import { HelpersRefsContext } from "../../helpers-refs-provider";
 
 interface LineBreaksProps {
   tool: TextsToolKeys;
 }
 
 export const HelperLineBreaksAddNewBreak: FC<LineBreaksProps> = ({ tool }) => {
+  const inputValue = useSelector((state: AppState) => state.input);
+  const dispatch = useDispatch<AppDispatch>();
+
   const needle = useSelector(
     (state: AppState) => state.lineBreaksHelper.needle,
   );
   const where = useSelector((state: AppState) => state.lineBreaksHelper.where);
-  const inputValue = useSelector((state: AppState) => state.input);
-  const dispatch = useDispatch<AppDispatch>();
+
+  const { addRef } = useContext(HelpersRefsContext);
+  const { convertTextOutput } = useConvertText();
 
   const changeOutputValue = useDebouncedCallback(
     (value: string | undefined) => {
       value && dispatch(newNeedle(value));
-      textsInputOutputConverter(dispatch, tool, inputValue);
+      convertTextOutput(tool, inputValue);
     },
     DEBOUNCE_WAIT,
   );
@@ -43,18 +49,20 @@ export const HelperLineBreaksAddNewBreak: FC<LineBreaksProps> = ({ tool }) => {
 
   return (
     <div>
-      <Label htmlFor="HelperLineBreaksAddNewBreak-needle">Needle:</Label>
+      <Label htmlFor="HelperLineBreaksAddNewBreakNeedle">Needle:</Label>
       <div className="flex flex-col items-center gap-3 sm:flex-row">
         <Input
+          ref={(el) => addRef("HelperLineBreaksAddNewBreakNeedle", el)}
           autoComplete="off"
           className="max-w-xs"
-          id="HelperLineBreaksAddNewBreak-needle"
+          id="HelperLineBreaksAddNewBreakNeedle"
           defaultValue={needle}
           onChange={(e) => changeOutputValue(e.target.value)}
         />
         <input
+          ref={(el) => addRef("HelperLineBreaksAddNewBreakWhere", el)}
           className="hidden"
-          id="HelperLineBreaksAddNewBreak-where"
+          id="HelperLineBreaksAddNewBreakWhere"
           readOnly
           value={where}
         />

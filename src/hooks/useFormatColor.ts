@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { type AppDispatch, type AppState } from "~/app/store";
 import { type ColorTypes } from "~/components/Tools/ColorsTool/colors-tool-wrapper";
-import { TOOLTIP_CHECKBOX_NAME_BASE } from "~/components/Tools/Helpers/helper-tooltip-checkbox";
+import { HelpersRefsContext } from "~/components/Tools/Helpers/helpers-refs-provider";
 import {
   parseColor,
   type ParsedColor,
@@ -14,9 +14,10 @@ import {
   setHwb,
   setRgb,
 } from "~/features/colors/colors-converter-slice";
-import { decimalRound, elementIsChecked, errorHandler } from "~/utils/utils";
+import { decimalRound, errorHandler } from "~/utils/utils";
 
 export const useFormatColor = () => {
+  const { getRefValue } = useContext(HelpersRefsContext);
   const [errorState, setErrorState] = useState("");
 
   const { HEX, HSL, HWB, RGB } = useSelector(
@@ -25,23 +26,15 @@ export const useFormatColor = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   function formatter(inputKey: keyof ColorTypes, colors: ParsedColor): void {
-    const showHashtag = elementIsChecked(
-      `${TOOLTIP_CHECKBOX_NAME_BASE}-showHashtag`,
+    const showHashtag = getRefValue("HelperTooltipCheckbox-showHashtag");
+    const showFormat = getRefValue("HelperTooltipCheckbox-showFormat");
+    const showCommas = getRefValue("HelperTooltipCheckbox-showCommas");
+    const hideAlpha = getRefValue("HelperTooltipCheckbox-alpha-hide");
+    const afterCommaAlpha = getRefValue(
+      "HelperTooltipCheckbox-alpha-afterComma",
     );
-    const showFormat = elementIsChecked(
-      `${TOOLTIP_CHECKBOX_NAME_BASE}-showFormat`,
-    );
-    const showCommas = elementIsChecked(
-      `${TOOLTIP_CHECKBOX_NAME_BASE}-showCommas`,
-    );
-    const hideAlpha = elementIsChecked(
-      `${TOOLTIP_CHECKBOX_NAME_BASE}-alpha-hide`,
-    );
-    const afterCommaAlpha = elementIsChecked(
-      `${TOOLTIP_CHECKBOX_NAME_BASE}-alpha-afterComma`,
-    );
-    const afterSlashAlpha = elementIsChecked(
-      `${TOOLTIP_CHECKBOX_NAME_BASE}-alpha-afterSlash`,
+    const afterSlashAlpha = getRefValue(
+      "HelperTooltipCheckbox-alpha-afterSlash",
     );
 
     const { v1, v2, v3, a } = colors;

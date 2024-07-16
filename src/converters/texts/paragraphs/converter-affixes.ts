@@ -1,15 +1,14 @@
-import { elementIsChecked } from "~/utils/utils";
+import { type HelpersRefsContextType } from "~/components/Tools/Helpers/helpers-refs-provider";
 
-function insertLineNumbering(input: string): string {
-  const splitterValue = (
-    document.getElementById(
-      "HelperAffixesInsertLineNumbering",
-    ) as HTMLInputElement | null
-  )?.value;
-
-  const shouldIncludeEmptyLines = elementIsChecked(
+function insertLineNumbering(
+  input: string,
+  getRefValue: HelpersRefsContextType["getRefValue"],
+): string {
+  const splitterValue = getRefValue("HelperAffixesInsertLineNumbering");
+  const shouldIncludeEmptyLines = getRefValue(
     "HelperTooltipCheckbox-includeEmptyLines",
   );
+
   const lines = input.split("\n");
 
   let skipCount = -1;
@@ -24,14 +23,12 @@ function insertLineNumbering(input: string): string {
     .join("\n");
 }
 
-function addPrefixes(input: string): string {
-  const prefixValue = (
-    document.getElementById(
-      "HelperAffixesAddPrefixes",
-    ) as HTMLInputElement | null
-  )?.value;
-
-  const shouldIncludeEmptyLines = elementIsChecked(
+function addPrefixes(
+  input: string,
+  getRefValue: HelpersRefsContextType["getRefValue"],
+): string {
+  const prefixValue = getRefValue("HelperAffixesAddPrefixes");
+  const shouldIncludeEmptyLines = getRefValue(
     "HelperTooltipCheckbox-includeEmptyLines",
   );
 
@@ -51,14 +48,12 @@ function addPrefixes(input: string): string {
   }
 }
 
-function addSuffixes(input: string): string {
-  const suffixValue = (
-    document.getElementById(
-      "HelperAffixesAddSuffixes",
-    ) as HTMLInputElement | null
-  )?.value;
-
-  const shouldIncludeEmptyLines = elementIsChecked(
+function addSuffixes(
+  input: string,
+  getRefValue: HelpersRefsContextType["getRefValue"],
+): string {
+  const suffixValue = getRefValue("HelperAffixesAddSuffixes");
+  const shouldIncludeEmptyLines = getRefValue(
     "HelperTooltipCheckbox-includeEmptyLines",
   );
 

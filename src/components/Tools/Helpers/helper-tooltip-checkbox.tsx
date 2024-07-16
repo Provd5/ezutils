@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { type FC, useContext } from "react";
 import { type IconType } from "react-icons/lib";
 
 import { Button } from "~/components/ui/button";
@@ -8,6 +8,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+
+import { HelpersRefsContext } from "./helpers-refs-provider";
 
 interface HelperTooltipCheckboxProps {
   children: React.ReactNode;
@@ -29,6 +31,8 @@ export const HelperTooltipCheckbox: FC<HelperTooltipCheckboxProps> = ({
   toggleCheckbox,
   Icon,
 }) => {
+  const { addRef } = useContext(HelpersRefsContext);
+
   return (
     <div>
       <TooltipProvider>
@@ -48,6 +52,7 @@ export const HelperTooltipCheckbox: FC<HelperTooltipCheckboxProps> = ({
         </Tooltip>
       </TooltipProvider>
       <input
+        ref={(el) => addRef(`${TOOLTIP_CHECKBOX_NAME_BASE}-${name}`, el)}
         className="hidden"
         readOnly
         id={`${TOOLTIP_CHECKBOX_NAME_BASE}-${name}`}

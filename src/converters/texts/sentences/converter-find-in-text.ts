@@ -1,44 +1,40 @@
+import { type HelpersRefsContextType } from "~/components/Tools/Helpers/helpers-refs-provider";
 import { wordMatch } from "~/converters/settings/converter-word-match";
 import { errorHandler } from "~/utils/utils";
 
-function findAndReplace(input: string): string {
-  const toBeReplaced =
-    (
-      document.getElementById(
-        "HelperFindInTextFindAndReplace-to-replace",
-      ) as HTMLInputElement | null
-    )?.value || "";
+function findAndReplace(
+  input: string,
+  getRefValue: HelpersRefsContextType["getRefValue"],
+): string {
+  const toBeReplaced = getRefValue("HelperFindInTextFindAndReplaceTo");
+  const replaceWithValue = getRefValue("HelperFindInTextFindAndReplaceWith");
 
-  if (toBeReplaced === "") return input;
+  if (typeof toBeReplaced !== "string" || typeof replaceWithValue !== "string")
+    return input;
 
   let regex: RegExp;
   try {
-    regex = wordMatch(toBeReplaced);
+    regex = wordMatch(toBeReplaced, getRefValue);
   } catch (e) {
     return errorHandler(e);
   }
 
-  const replaceWithValue =
-    (
-      document.getElementById(
-        "HelperFindInTextFindAndReplace-replace-with",
-      ) as HTMLInputElement | null
-    )?.value || "";
-
   return input.replace(regex, replaceWithValue);
 }
 
-function findAndCount(input: string): string {
-  const findValue =
-    (
-      document.getElementById(
-        "HelperFindInTextFindAndCount",
-      ) as HTMLInputElement | null
-    )?.value || "";
+function findAndCount(
+  input: string,
+  getRefValue: HelpersRefsContextType["getRefValue"],
+): string {
+  if (input === "") return input;
+
+  const findValue = getRefValue("HelperFindInTextFindAndCount");
+
+  if (typeof findValue !== "string") return input;
 
   let regex: RegExp;
   try {
-    regex = wordMatch(findValue);
+    regex = wordMatch(findValue, getRefValue);
   } catch (e) {
     return errorHandler(e);
   }
@@ -57,6 +53,8 @@ function findAndCount(input: string): string {
 }
 
 function findLinks(input: string): string {
+  if (input === "") return input;
+
   const regex =
     /\b(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\b/g;
   const matches = input.match(regex);
@@ -64,6 +62,8 @@ function findLinks(input: string): string {
 }
 
 function findQuotes(input: string): string {
+  if (input === "") return input;
+
   const regex =
     /«([^«»]+)»|“([^“”]+)”|“([^“”]+)”|"([^"]+)"|'([^']+)'|`([^`]+)`/g;
   const matches = input.match(regex);

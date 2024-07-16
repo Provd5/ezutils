@@ -1,21 +1,16 @@
 import escapeRegExp from "lodash.escaperegexp";
 
-import { TOOLTIP_CHECKBOX_NAME_BASE } from "~/components/Tools/Helpers/helper-tooltip-checkbox";
-import { wordMatchKeys } from "~/features/settings-slice";
-import { elementIsChecked } from "~/utils/utils";
+import { type HelpersRefsContextType } from "~/components/Tools/Helpers/helpers-refs-provider";
 
-export function wordMatch(helperValue: string): RegExp {
+export function wordMatch(
+  helperValue: string,
+  getRefValue: HelpersRefsContextType["getRefValue"],
+): RegExp {
   const wordMatchValues = {
-    case: false,
-    sentence: false,
-    regex: false,
+    case: getRefValue("HelperTooltipCheckbox-case"),
+    sentence: getRefValue("HelperTooltipCheckbox-sentence"),
+    regex: getRefValue("HelperTooltipCheckbox-regex"),
   };
-
-  wordMatchKeys.map((key) => {
-    wordMatchValues[key] = elementIsChecked(
-      `${TOOLTIP_CHECKBOX_NAME_BASE}-${key}`,
-    );
-  });
 
   let regex: RegExp;
   let flags = "g";
