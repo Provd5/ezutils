@@ -1,6 +1,6 @@
 import { type FC, useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 
 import { type AppDispatch, type AppState } from "~/app/store";
@@ -21,8 +21,8 @@ export const TextsToolInput: FC<TextsToolInputProps> = ({ placeholder }) => {
   const inputValue = useSelector((state: AppState) => state.input);
   const dispatch = useDispatch<AppDispatch>();
 
-  const params = useParams();
-  const { textsTool } = validateTextsParams("textsTool", params);
+  const { pathname } = useLocation();
+  const { textsTool } = validateTextsParams("textsTool", pathname);
 
   const { addRef } = useContext(HelpersRefsContext);
   const { convertTextOutput } = useConvertText();

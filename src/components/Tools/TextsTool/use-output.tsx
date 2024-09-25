@@ -1,7 +1,7 @@
 import { type FC, useContext, useState } from "react";
-import { FiRefreshCw } from "react-icons/fi";
+import { FaArrowTurnUp } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { type AppDispatch, type AppState } from "~/app/store";
 import { newInput } from "~/features/texts/input-slice";
@@ -16,8 +16,8 @@ export const UseOutput: FC = ({}) => {
   const outputValue = useSelector((state: AppState) => state.output);
   const dispatch = useDispatch<AppDispatch>();
 
-  const params = useParams();
-  const { textsTool } = validateTextsParams("textsTool", params);
+  const { pathname } = useLocation();
+  const { textsTool } = validateTextsParams("textsTool", pathname);
 
   const { getRefElement } = useContext(HelpersRefsContext);
   const { convertTextOutput } = useConvertText();
@@ -38,7 +38,7 @@ export const UseOutput: FC = ({}) => {
 
   return (
     <Button onClick={() => toggleOutputToInput()} disabled={disableButton}>
-      <FiRefreshCw className="mr-1 size-4" />
+      <FaArrowTurnUp className="mr-1 size-4" />
       Use output
     </Button>
   );
