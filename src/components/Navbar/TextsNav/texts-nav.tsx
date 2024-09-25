@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { type TextsSubCategory } from "~/types/texts";
 
@@ -9,14 +9,13 @@ import {
   CarouselContent,
   CarouselItem,
 } from "~/components/ui/carousel";
-import { type ParamsType } from "~/main";
 import { validateTextsParams } from "~/utils/validate-texts-params";
 
 import { TextsNavLink } from "./texts-nav-link";
 
 export const TextsNav: FC = ({}) => {
-  const params = useParams<ParamsType>();
-  const { textsCategory } = validateTextsParams("textsCategory", params);
+  const { pathname } = useLocation();
+  const { textsCategory } = validateTextsParams("textsCategory", pathname);
 
   const subCategories: TextsSubCategory[] = Object.values(
     APP_STRUCTURE.texts[textsCategory].subCategories,

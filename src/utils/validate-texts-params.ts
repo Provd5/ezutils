@@ -11,18 +11,18 @@ import { type ParamsType } from "~/main";
 type ValidateParams = {
   (
     variant: keyof Pick<ParamsType, "textsCategory">,
-    params: Readonly<Partial<ParamsType>>,
+    pathname: string,
   ): { textsCategory: TextsCategoryKeys };
   (
     variant: keyof Pick<ParamsType, "textsSubCategory">,
-    params: Readonly<Partial<ParamsType>>,
+    pathname: string,
   ): {
     textsCategory: TextsCategoryKeys;
     textsSubCategory: TextsSubCategoryKeys;
   };
   (
     variant: keyof Pick<ParamsType, "textsTool">,
-    params: Readonly<Partial<ParamsType>>,
+    pathname: string,
   ): {
     textsCategory: TextsCategoryKeys;
     textsSubCategory: TextsSubCategoryKeys;
@@ -35,7 +35,7 @@ export const validateTextsParams: ValidateParams = (
     ParamsType,
     "textsCategory" | "textsSubCategory" | "textsTool"
   >,
-  params: Readonly<Partial<ParamsType>>,
+  pathname: string,
 ) => {
   const requiredFields = {
     textsCategory: ["textsCategory"],
@@ -43,35 +43,28 @@ export const validateTextsParams: ValidateParams = (
     textsTool: ["textsCategory", "textsSubCategory", "textsTool"],
   }[variant];
 
-  requiredFields.forEach((field) => {
-    if (!params[field]) {
-      throw new Error("Missing required field");
-    }
-  });
+  const pathnameSplits = pathname.split("/").filter((s) => s !== "");
 
-  const categoryParam = params.textsCategory;
-  const subCategoryParam = params.textsSubCategory;
-  const toolParam = params.textsTool;
+  const category = pathnameSplits[1];
+  const subcategory = pathnameSplits[2];
+  const tool = pathnameSplits[3];
 
   if (
     variant === "textsCategory" ||
     variant === "textsSubCategory" ||
     variant === "textsTool"
   ) {
-    if (
-      categoryParam &&
-      !Object.keys(APP_STRUCTURE.texts).includes(categoryParam)
-    ) {
+    if (category && !Object.keys(APP_STRUCTURE.texts).includes(category)) {
       throw new Error("Texts category not found");
     }
   }
 
   if (variant === "textsSubCategory" || variant === "textsTool") {
     if (
-      subCategoryParam &&
+      subcategory &&
       !Object.keys(
-        APP_STRUCTURE.texts[categoryParam as TextsCategoryKeys].subCategories,
-      ).includes(subCategoryParam)
+        APP_STRUCTURE.texts[category as TextsCategoryKeys].subCategories,
+      ).includes(subcategory)
     ) {
       throw new Error("Texts subcategory not found");
     }
@@ -79,19 +72,28 @@ export const validateTextsParams: ValidateParams = (
 
   if (variant === "textsTool") {
     if (
-      toolParam &&
+      tool &&
       !Object.keys(
-        (APP_STRUCTURE.texts as App["texts"])[
-          categoryParam as TextsCategoryKeys
-        ].subCategories[subCategoryParam as TextsSubCategoryKeys].tools,
-      ).includes(toolParam)
+        (APP_STRUCTURE.texts as App["texts"])[category as TextsCategoryKeys]
+          .subCategories[subcategory as TextsSubCategoryKeys].tools,
+      ).includes(tool)
     ) {
       throw new Error("Tool not found");
     }
   }
 
-  return requiredFields.reduce(
-    (acc, field) => ({ ...acc, [field]: params[field] }),
+  const returnFields = requiredFields.reduce(
+    (acc, field) => ({
+      ...acc,
+      [field]:
+        field === "textsCategory"
+          ? category
+          : field === "textsSubCategory"
+            ? subcategory
+            : tool,
+    }),
     {},
   ) as ReturnType<ValidateParams>;
+
+  return returnFields;
 };

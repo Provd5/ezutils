@@ -1,11 +1,10 @@
 import { type FC } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { type App } from "~/types/app";
 import { type TextsTool } from "~/types/texts";
 
 import { APP_STRUCTURE } from "~/app/appStructure/app-structure";
-import { type ParamsType } from "~/main";
 import { validateTextsParams } from "~/utils/validate-texts-params";
 
 import TextsHelpers from "../Helpers/texts";
@@ -15,10 +14,10 @@ import { TextsToolOutput } from "./texts-tool-output";
 import { UseOutput } from "./use-output";
 
 export const TextsToolWrapper: FC = ({}) => {
-  const params = useParams<ParamsType>();
+  const { pathname } = useLocation();
   const { textsCategory, textsSubCategory, textsTool } = validateTextsParams(
     "textsTool",
-    params,
+    pathname,
   );
 
   const { description, inputExample, label, outputExample }: TextsTool = (
@@ -35,8 +34,8 @@ export const TextsToolWrapper: FC = ({}) => {
         <TextsToolInput placeholder={inputExample} />
         <TextsToolOutput placeholder={outputExample} />
         <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 max-sm:justify-center">
-          <UseOutput />
           <CopyOutput />
+          <UseOutput />
         </div>
       </div>
     </div>

@@ -57,7 +57,7 @@ export const CopyOutput: FC = ({}) => {
             ) : (
               <MdOutlineContentCopy className="group-hover:scale-11 size-5 animate-show transition-transform group-hover:rotate-6" />
             )}
-            <span className="ml-1">Copy result!</span>
+            <span className="ml-1">Copy!</span>
           </Button>
         </TooltipTrigger>
         {copyStatus && (
