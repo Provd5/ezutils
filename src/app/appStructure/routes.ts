@@ -1,6 +1,3 @@
-// /colors
-export const COLORS_ROUTE_BASE = "/colors";
-
 // /texts
 export const TEXTS_CATEGORY_ROUTE = "/texts";
 
@@ -21,3 +18,6 @@ export const CASE_CONVERTER_ROUTE_BASE =
 export const REMOVE_ROUTE_BASE = SENTENCES_ROUTE_BASE + "/remove";
 export const FIND_IN_TEXT_ROUTE_BASE = SENTENCES_ROUTE_BASE + "/findInText";
 export const SORT_WORDS_ROUTE_BASE = SENTENCES_ROUTE_BASE + "/sortWords";
+
+// /colors
+export const COLORS_ROUTE_BASE = "/colors";

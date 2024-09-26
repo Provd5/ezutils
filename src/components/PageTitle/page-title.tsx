@@ -1,27 +1,29 @@
 import { type FC, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { type AppCategoryKeys } from "~/types/app";
 
 import { APP_STRUCTURE } from "~/app/appStructure/app-structure";
-import { type ParamsType } from "~/main";
 
 import { APP_NAME } from "../logo";
 import { textsPageTitle } from "./texts-page-title";
 
 export const PageTitle: FC = ({}) => {
-  const { textsCategory, textsSubCategory, textsTool } =
-    useParams<ParamsType>();
   const location = useLocation();
-  const pathnameParts = location.pathname.split("/");
+  const pathnameSplits = location.pathname.split("/").filter((s) => s !== "");
 
-  const root = (pathnameParts[1] || "home") as AppCategoryKeys;
+  const root = (pathnameSplits[0] || "home") as AppCategoryKeys;
+  const category = pathnameSplits[1];
+  const subcategory = pathnameSplits[2];
+  const tool = pathnameSplits[3];
 
   const defaultTitle = APP_NAME;
-  const template = (title: string) => `${title} - ${APP_NAME}`;
 
   useEffect(() => {
     let newTitle: string;
+    const template = (title?: string) =>
+      title ? `${title} - ${APP_NAME}` : defaultTitle;
+
     switch (root) {
       case "home":
         newTitle = template(APP_STRUCTURE.home.label);
@@ -30,10 +32,7 @@ export const PageTitle: FC = ({}) => {
         newTitle = template(APP_STRUCTURE.colors.label);
         break;
       case "texts":
-        newTitle = template(
-          textsPageTitle(textsCategory, textsSubCategory, textsTool) ||
-            defaultTitle,
-        );
+        newTitle = template(textsPageTitle(category, subcategory, tool));
         break;
 
       default:
@@ -42,14 +41,7 @@ export const PageTitle: FC = ({}) => {
     }
 
     document.title = newTitle;
-  }, [
-    root,
-    defaultTitle,
-    location,
-    textsCategory,
-    textsSubCategory,
-    textsTool,
-  ]);
+  }, [category, defaultTitle, root, subcategory, tool]);
 
   return null;
 };

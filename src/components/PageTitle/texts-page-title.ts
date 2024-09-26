@@ -15,21 +15,22 @@ export function textsPageTitle(
   if (!category) return;
 
   const validCategory = category as TextsCategoryKeys;
-  let title = APP_STRUCTURE.texts[validCategory].label as string;
+  const categoryLabel = APP_STRUCTURE.texts[validCategory].label;
+  let title = categoryLabel;
 
-  if (subCategory) {
-    const validSubCategory = subCategory as TextsSubCategoryKeys;
-    title = (APP_STRUCTURE.texts as App["texts"])[validCategory].subCategories[
-      validSubCategory
-    ].label;
-    if (tool) {
-      const validTool = tool as TextsToolKeys;
-      title =
-        (APP_STRUCTURE.texts as App["texts"])[validCategory].subCategories[
-          validSubCategory
-        ].tools[validTool].label + ` < ${title}`;
-    }
-  }
+  if (!subCategory) return title;
+
+  const validSubCategory = subCategory as TextsSubCategoryKeys;
+  const subCategoryLabel = (APP_STRUCTURE.texts as App["texts"])[validCategory]
+    .subCategories[validSubCategory].label;
+  title = subCategoryLabel + ` < ${categoryLabel}`;
+
+  if (!tool) return title;
+
+  const validTool = tool as TextsToolKeys;
+  const toolLabel = (APP_STRUCTURE.texts as App["texts"])[validCategory]
+    .subCategories[validSubCategory].tools[validTool].label;
+  title = toolLabel + ` < ${subCategoryLabel}`;
 
   return title;
 }
