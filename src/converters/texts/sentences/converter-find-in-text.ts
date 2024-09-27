@@ -1,3 +1,4 @@
+import { HELPER_NAME } from "~/components/Tools/Helpers/helper-tooltip-checkbox";
 import { type HelpersRefsContextType } from "~/components/Tools/Helpers/helpers-refs-provider";
 import { wordMatch } from "~/converters/settings/converter-word-match";
 import { errorHandler } from "~/utils/utils";
@@ -6,8 +7,12 @@ function findAndReplace(
   input: string,
   getRefValue: HelpersRefsContextType["getRefValue"],
 ): string {
-  const toBeReplaced = getRefValue("HelperFindInTextFindAndReplaceTo");
-  const replaceWithValue = getRefValue("HelperFindInTextFindAndReplaceWith");
+  const toBeReplaced = getRefValue(
+    `${HELPER_NAME}-findInText-findAndReplace-to`,
+  );
+  const replaceWithValue = getRefValue(
+    `${HELPER_NAME}-findInText-findAndReplace-with`,
+  );
 
   if (typeof toBeReplaced !== "string" || typeof replaceWithValue !== "string")
     return input;
@@ -28,7 +33,7 @@ function findAndCount(
 ): string {
   if (input === "") return input;
 
-  const findValue = getRefValue("HelperFindInTextFindAndCount");
+  const findValue = getRefValue(`${HELPER_NAME}-findInText-findAndCount`);
 
   if (typeof findValue !== "string") return input;
 

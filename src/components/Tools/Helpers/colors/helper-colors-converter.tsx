@@ -9,8 +9,9 @@ import {
   toggleCommas,
   toggleFormat,
   toggleShowHashtag,
+  toggleUnits,
 } from "~/features/colors/colors-converter-slice";
-import { useFormatColor } from "~/hooks/useFormatColor";
+import { useConvertColor } from "~/hooks/useConvertColor";
 
 import { HelperTooltipCheckbox } from "../helper-tooltip-checkbox";
 
@@ -18,19 +19,18 @@ export const HelperColorsConverter: FC = () => {
   return (
     <div className="flex flex-col gap-1">
       <div className="flex flex-col gap-1">
-        <p className="text-sm text-muted-foreground">Alpha channel:</p>
-        <div className="flex gap-1">
-          <Alpha type="hide" />
-          <Alpha type="afterComma" />
-          <Alpha type="afterSlash" />
-        </div>
-      </div>
-      <div className="flex flex-col gap-1">
         <p className="text-sm text-muted-foreground">Output format:</p>
         <div className="flex gap-1">
           <ShowHashtag />
           <ShowFormat />
           <ShowCommas />
+          <ShowUnits />
+        </div>
+      </div>
+      <div className="flex flex-col gap-1">
+        <p className="text-sm text-muted-foreground">Alpha:</p>
+        <div className="flex gap-1">
+          <Alpha />
         </div>
       </div>
     </div>
@@ -38,25 +38,23 @@ export const HelperColorsConverter: FC = () => {
 };
 
 export const ShowHashtag: FC = () => {
-  const { formatAll } = useFormatColor();
-  const showHashtag = useSelector(
-    (state: AppState) => state.colorsConverter.showHashtag,
-  );
+  const { convertFrom } = useConvertColor();
+  const state = useSelector((state: AppState) => state.colorsConverter);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const toggle = () => {
-    dispatch(toggleShowHashtag(!showHashtag));
+    dispatch(toggleShowHashtag(!state.showHashtag));
   };
 
   useEffect(() => {
-    formatAll();
-  }, [showHashtag]);
+    convertFrom(state.colorInput.from, state.colorInput.value);
+  }, [state.showHashtag]);
 
   return (
     <HelperTooltipCheckbox
       Icon={FaHashtag}
-      isChecked={showHashtag}
+      isChecked={state.showHashtag}
       toggleCheckbox={toggle}
       name="showHashtag"
     >
@@ -66,25 +64,23 @@ export const ShowHashtag: FC = () => {
 };
 
 export const ShowCommas: FC = () => {
-  const { formatAll } = useFormatColor();
-  const showCommas = useSelector(
-    (state: AppState) => state.colorsConverter.showCommas,
-  );
+  const { convertFrom } = useConvertColor();
 
+  const state = useSelector((state: AppState) => state.colorsConverter);
   const dispatch = useDispatch<AppDispatch>();
 
   const toggle = () => {
-    dispatch(toggleCommas(!showCommas));
+    dispatch(toggleCommas(!state.showCommas));
   };
 
   useEffect(() => {
-    formatAll();
-  }, [showCommas]);
+    convertFrom(state.colorInput.from, state.colorInput.value);
+  }, [state.showCommas]);
 
   return (
     <HelperTooltipCheckbox
       Icon="n, n"
-      isChecked={showCommas}
+      isChecked={state.showCommas}
       toggleCheckbox={toggle}
       name="showCommas"
     >
@@ -94,25 +90,23 @@ export const ShowCommas: FC = () => {
 };
 
 export const ShowFormat: FC = () => {
-  const { formatAll } = useFormatColor();
-  const showFormat = useSelector(
-    (state: AppState) => state.colorsConverter.showFormat,
-  );
+  const { convertFrom } = useConvertColor();
+  const state = useSelector((state: AppState) => state.colorsConverter);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const toggle = () => {
-    dispatch(toggleFormat(!showFormat));
+    dispatch(toggleFormat(!state.showFormat));
   };
 
   useEffect(() => {
-    formatAll();
-  }, [showFormat]);
+    convertFrom(state.colorInput.from, state.colorInput.value);
+  }, [state.showFormat]);
 
   return (
     <HelperTooltipCheckbox
       Icon="rgb()"
-      isChecked={showFormat}
+      isChecked={state.showFormat}
       toggleCheckbox={toggle}
       name="showFormat"
     >
@@ -121,32 +115,65 @@ export const ShowFormat: FC = () => {
   );
 };
 
-export const Alpha: FC<{ type: ColorAlpha }> = ({ type }) => {
-  const { formatAll } = useFormatColor();
-  const alpha = useSelector((state: AppState) => state.colorsConverter.alpha);
+export const ShowUnits: FC = () => {
+  const { convertFrom } = useConvertColor();
+  const state = useSelector((state: AppState) => state.colorsConverter);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const toggle = () => {
+    dispatch(toggleUnits(!state.showUnits));
+  };
+
+  useEffect(() => {
+    convertFrom(state.colorInput.from, state.colorInput.value);
+  }, [state.showUnits]);
+
+  return (
+    <HelperTooltipCheckbox
+      Icon="units"
+      isChecked={state.showUnits}
+      toggleCheckbox={toggle}
+      name="showUnits"
+    >
+      Show output units
+    </HelperTooltipCheckbox>
+  );
+};
+
+export const Alpha: FC = () => {
+  const { convertFrom } = useConvertColor();
+  const state = useSelector((state: AppState) => state.colorsConverter);
+
+  const alphaSettings: ColorAlpha[] = [
+    "hide",
+    "afterComma",
+    "afterSlash",
+  ] as const;
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const toggle = (type: ColorAlpha) => {
     dispatch(toggleAlpha(type));
   };
 
   useEffect(() => {
-    formatAll();
-  }, [alpha]);
+    convertFrom(state.colorInput.from, state.colorInput.value);
+  }, [state.alpha]);
 
-  return (
+  return alphaSettings.map((type) => (
     <HelperTooltipCheckbox
+      key={`Alpha-HelperTooltipCheckbox-${type}`}
       Icon={
         type === "afterComma" ? ", a" : type === "afterSlash" ? "/ a" : "hide"
       }
-      isChecked={alpha === type}
-      toggleCheckbox={toggle}
+      isChecked={state.alpha === type}
+      toggleCheckbox={() => toggle(type)}
       name={`alpha-${type}`}
     >
       {type === "hide" && "Don't show alpha value"}
       {type === "afterComma" && "Show comma-separated alpha value"}
       {type === "afterSlash" && "Show slash-separated alpha value"}
     </HelperTooltipCheckbox>
-  );
+  ));
 };

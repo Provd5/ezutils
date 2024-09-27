@@ -7,7 +7,7 @@ export default function RootLayout() {
   return (
     <div className="flex min-h-screen flex-col-reverse md:flex-row">
       <PageTitle />
-      <main className="mr-auto w-full grow md:pl-80 lg:pl-96">
+      <main className="mr-auto flex w-full grow flex-col md:pl-80 lg:pl-96">
         <Outlet />
       </main>
       <Navbar />

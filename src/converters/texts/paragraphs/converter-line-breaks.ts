@@ -1,3 +1,4 @@
+import { HELPER_NAME } from "~/components/Tools/Helpers/helper-tooltip-checkbox";
 import { type HelpersRefsContextType } from "~/components/Tools/Helpers/helpers-refs-provider";
 
 import remove from "../sentences/converter-remove";
@@ -6,8 +7,10 @@ function addNewBreak(
   input: string,
   getRefValue: HelpersRefsContextType["getRefValue"],
 ): string {
-  const needleValue = getRefValue("HelperLineBreaksAddNewBreakNeedle");
-  const whereValue = getRefValue("HelperLineBreaksAddNewBreakWhere");
+  const needleValue = getRefValue(
+    `${HELPER_NAME}-lineBreaks-addNewBreak-needle`,
+  );
+  const whereValue = getRefValue(`${HELPER_NAME}-lineBreaks-addNewBreak-where`);
 
   if (typeof needleValue === "string" && typeof whereValue === "string") {
     const regex = new RegExp(needleValue, "g");

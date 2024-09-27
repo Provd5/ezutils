@@ -8,7 +8,6 @@ import { APP_STRUCTURE } from "~/app/appStructure/app-structure";
 import { validateTextsParams } from "~/utils/validate-texts-params";
 
 import TextsHelpers from "../Helpers/texts";
-import { CopyOutput } from "./copy-output";
 import { TextsToolInput } from "./texts-tool-input";
 import { TextsToolOutput } from "./texts-tool-output";
 import { UseOutput } from "./use-output";
@@ -26,15 +25,14 @@ export const TextsToolWrapper: FC = ({}) => {
 
   return (
     <div className="flex w-full flex-col gap-1">
-      <p>
+      <h1 className="px-3 pb-3">
         <span className="text-lg font-bold">{label}</span> - {description}
-      </p>
+      </h1>
       <TextsHelpers tool={textsTool} />
       <div className="flex flex-col gap-0.5">
         <TextsToolInput placeholder={inputExample} />
         <TextsToolOutput placeholder={outputExample} />
-        <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 max-sm:justify-center">
-          <CopyOutput />
+        <div className="mt-1">
           <UseOutput />
         </div>
       </div>

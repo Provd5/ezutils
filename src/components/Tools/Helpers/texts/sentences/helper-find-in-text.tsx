@@ -14,6 +14,7 @@ import {
 import { useConvertText } from "~/hooks/useConvertText";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
 
+import { HELPER_NAME } from "../../helper-tooltip-checkbox";
 import { HelpersRefsContext } from "../../helpers-refs-provider";
 import { HelperWordMatch } from "../../settings/helper-word-match";
 
@@ -55,27 +56,31 @@ export const HelperFindInTextFindAndReplace: FC<FindInTextProps> = ({
     <div className="flex flex-col gap-1.5">
       <div className="flex flex-col gap-x-1.5 sm:flex-row">
         <div>
-          <Label htmlFor="HelperFindInTextFindAndReplaceTo">
+          <Label htmlFor={`${HELPER_NAME}-findInText-findAndReplace-to`}>
             Text to replace:
           </Label>
           <Input
-            ref={(el) => addRef("HelperFindInTextFindAndReplaceTo", el)}
+            ref={(el) =>
+              addRef(`${HELPER_NAME}-findInText-findAndReplace-to`, el)
+            }
             autoComplete="off"
             className="max-w-xs"
-            id="HelperFindInTextFindAndReplaceTo"
+            id={`${HELPER_NAME}-findInText-findAndReplace-to`}
             defaultValue={findInTextHelper.toReplace}
             onChange={(e) => changeOutputValue("toReplace", e.target.value)}
           />
         </div>
         <div>
-          <Label htmlFor="HelperFindInTextFindAndReplaceWith">
+          <Label htmlFor={`${HELPER_NAME}-findInText-findAndReplace-with`}>
             Replace with:
           </Label>
           <Input
-            ref={(el) => addRef("HelperFindInTextFindAndReplaceWith", el)}
+            ref={(el) =>
+              addRef(`${HELPER_NAME}-findInText-findAndReplace-with`, el)
+            }
             autoComplete="off"
             className="max-w-xs"
-            id="HelperFindInTextFindAndReplaceWith"
+            id={`${HELPER_NAME}-findInText-findAndReplace-with`}
             defaultValue={findInTextHelper.replaceWith}
             onChange={(e) => changeOutputValue("replaceWith", e.target.value)}
           />
@@ -106,12 +111,14 @@ export const HelperFindInTextFindAndCount: FC<FindInTextProps> = ({ tool }) => {
   return (
     <div className="flex flex-col gap-1.5">
       <div>
-        <Label htmlFor="HelperFindInTextFindAndCount">Find in text:</Label>
+        <Label htmlFor={`${HELPER_NAME}-findInText-findAndCount`}>
+          Find in text:
+        </Label>
         <Input
-          ref={(el) => addRef("HelperFindInTextFindAndCount", el)}
+          ref={(el) => addRef(`${HELPER_NAME}-findInText-findAndCount`, el)}
           autoComplete="off"
           className="max-w-xs"
-          id="HelperFindInTextFindAndCount"
+          id={`${HELPER_NAME}-findInText-findAndCount`}
           defaultValue={findInTextHelper.toReplace}
           onChange={(e) => changeOutputValue(e.target.value)}
         />

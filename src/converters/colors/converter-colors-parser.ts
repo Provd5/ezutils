@@ -1,4 +1,4 @@
-import { type ColorTypes } from "~/components/Tools/ColorsTool/colors-tool-wrapper";
+import { type ColorTypes } from "~/types/colors";
 
 const INPUT_ERROR = (type: keyof ColorTypes) => {
   return new Error(`Invalid ${type} input`);
@@ -36,7 +36,7 @@ export const parseColor = (
     };
   }
 
-  if (inputKey === "HSL" || inputKey === "HWB") {
+  if (inputKey === "HSL") {
     const isTurn = v1.includes("turn");
     const isAlphaInPercent = a.includes("%");
     const upperLimit = isTurn ? 1 : 360;
@@ -106,14 +106,13 @@ function isolateColors(
       regex = /[0-9a-fA-F]{3,8}/g;
       break;
     case "HSL":
-    case "HWB":
       regex =
-        /(\d{1,3}(\.\d+)?(deg|turn)?[\s,]+\d{1,3}(\.\d+)?\s*%?[\s,]+\d{1,3}(\.\d+)?\s*%?)([\s,]+\d{1,3}(\.\d+)?\s*%?)?/g;
+        /(\d{1,3}(\.\d+)?(deg|turn)?[\s,]+\d{1,3}(\.\d+)?\s*%?[\s,]+\d{1,3}(\.\d+)?\s*%?)([\s,/]?\d{1,3}(\.\d+)?\s*%?)?/g;
       break;
     default:
     case "RGB":
       regex =
-        /(\d{1,3}(\.\d+)?\s*%?[\s,]+\d{1,3}(\.\d+)?\s*%?[\s,]+\d{1,3}(\.\d+)?\s*%?)([\s,]+\d{1,3}(\.\d+)?\s*%?)?/g;
+        /(\d{1,3}(\.\d+)?\s*%?[\s,]+\d{1,3}(\.\d+)?\s*%?[\s,]+\d{1,3}(\.\d+)?\s*%?)([\s,/]?\d{1,3}(\.\d+)?\s*%?)?/g;
       break;
   }
 
@@ -143,8 +142,16 @@ function isolateColors(
         throw INPUT_ERROR(key);
     }
   } else {
-    values = result.split(/[\s,]/).filter((x) => x !== "");
-    if (!values[0] || !values[1] || !values[2]) throw INPUT_ERROR(key);
+    values = result.split(/[\s,/]/).filter((x) => x !== "");
+    console.log(values);
+
+    if (
+      !values[0] ||
+      !values[1] ||
+      !values[2] ||
+      (values[3]?.length === 1 && values[3] === "%")
+    )
+      throw INPUT_ERROR(key);
     v1 = values[0];
     v2 = values[1];
     v3 = values[2];

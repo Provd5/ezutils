@@ -22,11 +22,7 @@ export const Hamburger: FC = ({}) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button
-          ref={closeSheetRef}
-          size={"icon"}
-          className="ml-auto mt-1.5 rounded-r-none md:hidden"
-        >
+        <Button ref={closeSheetRef} size={"icon"} className="rounded-r-none">
           <RiMenuFoldLine className="size-5" />
         </Button>
       </SheetTrigger>

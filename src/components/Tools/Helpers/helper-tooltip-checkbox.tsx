@@ -20,9 +20,9 @@ interface HelperTooltipCheckboxProps {
 }
 
 /**
- *  @constant id={`${TOOLTIP_CHECKBOX_NAME_BASE}-${name}`}
+ *  @constant id={`${HELPER_NAME}-${name}`}
  */
-export const TOOLTIP_CHECKBOX_NAME_BASE = "HelperTooltipCheckbox";
+export const HELPER_NAME = "helper";
 
 export const HelperTooltipCheckbox: FC<HelperTooltipCheckboxProps> = ({
   children,
@@ -52,10 +52,10 @@ export const HelperTooltipCheckbox: FC<HelperTooltipCheckboxProps> = ({
         </Tooltip>
       </TooltipProvider>
       <input
-        ref={(el) => addRef(`${TOOLTIP_CHECKBOX_NAME_BASE}-${name}`, el)}
+        ref={(el) => addRef(`${HELPER_NAME}-${name}`, el)}
         className="hidden"
         readOnly
-        id={`${TOOLTIP_CHECKBOX_NAME_BASE}-${name}`}
+        id={`${HELPER_NAME}-${name}`}
         type="checkbox"
         checked={isChecked}
       />

@@ -38,8 +38,8 @@ export const UseOutput: FC = ({}) => {
 
   return (
     <Button onClick={() => toggleOutputToInput()} disabled={disableButton}>
-      <FaArrowTurnUp className="mr-1 size-4" />
       Use output
+      <FaArrowTurnUp className="ml-1 size-4" />
     </Button>
   );
 };

@@ -8,7 +8,9 @@ import { RootNavLink } from "./root-nav-link";
 export const RootNav: FC = ({}) => {
   return (
     <nav className="flex flex-col gap-3 max-md:mt-6">
-      <Logo />
+      <div className="mb-3 ml-3">
+        <Logo />
+      </div>
       <RootNavLink variant={APP_STRUCTURE.home} />
       <h1 className="text-sm text-muted-foreground">Categories</h1>
       <div className="flex flex-col gap-1">

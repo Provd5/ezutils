@@ -11,7 +11,7 @@ export const COLORS_CATEGORY = {
       href: COLORS_ROUTE_BASE,
       label: "Convert colors",
       description:
-        "Paste color and convert it between RGB, HSL, HWB, and hexadecimal",
+        "Paste color and convert it between RGB, HSL, and hexadecimal",
     },
   },
 } as const;
