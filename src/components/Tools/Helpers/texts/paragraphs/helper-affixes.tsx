@@ -15,6 +15,7 @@ import {
 import { useConvertText } from "~/hooks/useConvertText";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
 
+import { HELPER_NAME } from "../../helper-tooltip-checkbox";
 import { HelpersRefsContext } from "../../helpers-refs-provider";
 import { HelperIncludeEmptyLines } from "../../settings/helper-include-empty-lines";
 
@@ -45,13 +46,15 @@ export const HelperAffixesInsertLineNumbering: FC<AffixesProps> = ({
 
   return (
     <div>
-      <Label htmlFor="HelperAffixesInsertLineNumbering">Splitter:</Label>
+      <Label htmlFor={`${HELPER_NAME}-affixes-insertLineNumbering`}>
+        Splitter:
+      </Label>
       <div className="flex flex-col gap-1.5">
         <Input
-          ref={(el) => addRef("HelperAffixesInsertLineNumbering", el)}
+          ref={(el) => addRef(`${HELPER_NAME}-affixes-insertLineNumbering`, el)}
           autoComplete="off"
           className="max-w-xs"
-          id="HelperAffixesInsertLineNumbering"
+          id={`${HELPER_NAME}-affixes-insertLineNumbering`}
           defaultValue={splitter}
           onChange={(e) => changeOutputValue(e.target.value)}
         />
@@ -80,13 +83,13 @@ export const HelperAffixesAddPrefixes: FC<AffixesProps> = ({ tool }) => {
 
   return (
     <div>
-      <Label htmlFor="HelperAffixesAddPrefixes">Add prefix:</Label>
+      <Label htmlFor={`${HELPER_NAME}-affixes-addPrefixes`}>Add prefix:</Label>
       <div className="flex flex-col gap-1.5">
         <Input
-          ref={(el) => addRef("HelperAffixesAddPrefixes", el)}
+          ref={(el) => addRef(`${HELPER_NAME}-affixes-addPrefixes`, el)}
           autoComplete="off"
           className="max-w-xs"
-          id="HelperAffixesAddPrefixes"
+          id={`${HELPER_NAME}-affixes-addPrefixes`}
           defaultValue={prefix}
           onChange={(e) => changeOutputValue(e.target.value)}
         />
@@ -115,13 +118,13 @@ export const HelperAffixesAddSuffixes: FC<AffixesProps> = ({ tool }) => {
 
   return (
     <div>
-      <Label htmlFor="HelperAffixesAddSuffixes">Add suffix:</Label>
+      <Label htmlFor={`${HELPER_NAME}-affixes-addSuffixes`}>Add suffix:</Label>
       <div className="flex flex-col gap-1.5">
         <Input
-          ref={(el) => addRef("HelperAffixesAddSuffixes", el)}
+          ref={(el) => addRef(`${HELPER_NAME}-affixes-addSuffixes`, el)}
           autoComplete="off"
           className="max-w-xs"
-          id="HelperAffixesAddSuffixes"
+          id={`${HELPER_NAME}-affixes-addSuffixes`}
           defaultValue={suffix}
           onChange={(e) => changeOutputValue(e.target.value)}
         />

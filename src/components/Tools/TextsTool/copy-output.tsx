@@ -1,9 +1,7 @@
 import { type FC, useState } from "react";
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 import { MdOutlineContentCopy } from "react-icons/md";
-import { useSelector } from "react-redux";
 
-import { type AppState } from "~/app/store";
 import { cn } from "~/utils/utils";
 
 import { Button } from "../../ui/button";
@@ -14,8 +12,12 @@ import {
   TooltipTrigger,
 } from "../../ui/tooltip";
 
-export const CopyOutput: FC = ({}) => {
-  const outputValue = useSelector((state: AppState) => state.output);
+interface CopyOutputProps {
+  value: string;
+  className?: string;
+}
+
+export const CopyOutput: FC<CopyOutputProps> = ({ value, className }) => {
   const [copyStatus, setCopyStatus] = useState<{
     success: boolean;
     msg: string;
@@ -26,13 +28,13 @@ export const CopyOutput: FC = ({}) => {
       setCopyStatus(undefined);
     }, 1000);
 
-    if (outputValue.trim() === "") {
+    if (value.trim() === "") {
       setCopyStatus({ success: false, msg: "No content to copy! ⛔" });
       return;
     }
 
     try {
-      navigator.clipboard.writeText(outputValue);
+      navigator.clipboard.writeText(value);
       setCopyStatus({ success: true, msg: "Copied successfully! ✅" });
     } catch (error) {
       setCopyStatus({ success: false, msg: "Failed to copy! ❌" });
@@ -44,8 +46,13 @@ export const CopyOutput: FC = ({}) => {
       <Tooltip open={copyStatus ? true : false}>
         <TooltipTrigger asChild>
           <Button
+            variant={"outline"}
+            size={"icon"}
             onClick={() => copyOutput()}
-            className="group disabled:select-none disabled:opacity-100"
+            className={cn(
+              "group disabled:select-none disabled:opacity-100",
+              className,
+            )}
             disabled={!!copyStatus}
           >
             {copyStatus ? (
@@ -57,7 +64,6 @@ export const CopyOutput: FC = ({}) => {
             ) : (
               <MdOutlineContentCopy className="group-hover:scale-11 size-5 animate-show transition-transform group-hover:rotate-6" />
             )}
-            <span className="ml-1">Copy!</span>
           </Button>
         </TooltipTrigger>
         {copyStatus && (

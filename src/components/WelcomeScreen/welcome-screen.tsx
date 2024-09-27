@@ -4,10 +4,11 @@ import { type TextsCategory } from "~/types/texts";
 
 import { APP_STRUCTURE } from "~/app/appStructure/app-structure";
 
+import { APP_NAME } from "../logo";
 import { CategorySegment } from "./category-segment";
 
 const texts = {
-  title: "Welcome to Ez-utils",
+  title: `Welcome to ${APP_NAME}`,
   subtitle:
     "All-in-one tool for effortless text editing and color conversions!",
   shortText:

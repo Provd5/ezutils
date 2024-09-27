@@ -1,5 +1,6 @@
 import escapeRegExp from "lodash.escaperegexp";
 
+import { HELPER_NAME } from "~/components/Tools/Helpers/helper-tooltip-checkbox";
 import { type HelpersRefsContextType } from "~/components/Tools/Helpers/helpers-refs-provider";
 
 export function wordMatch(
@@ -7,9 +8,9 @@ export function wordMatch(
   getRefValue: HelpersRefsContextType["getRefValue"],
 ): RegExp {
   const wordMatchValues = {
-    case: getRefValue("HelperTooltipCheckbox-case"),
-    sentence: getRefValue("HelperTooltipCheckbox-sentence"),
-    regex: getRefValue("HelperTooltipCheckbox-regex"),
+    case: getRefValue(`${HELPER_NAME}-case`),
+    sentence: getRefValue(`${HELPER_NAME}-sentence`),
+    regex: getRefValue(`${HELPER_NAME}-regex`),
   };
 
   let regex: RegExp;

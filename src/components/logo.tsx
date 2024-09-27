@@ -1,12 +1,30 @@
 import type { FC } from "react";
+import { Link } from "react-router-dom";
+
+import { cn } from "~/utils/utils";
 
 export const APP_NAME = "EzUtils";
 
-export const Logo: FC = ({}) => {
+interface LogoProps {
+  size?: "sm" | "default";
+}
+
+export const Logo: FC<LogoProps> = ({ size = "default" }) => {
   return (
-    <div className="pointer-events-none mb-5 flex select-none items-center gap-1">
-      <img className="size-12" src="/favicon.svg" alt={`${APP_NAME} logo`} />
-      <h1 className="text-3xl font-semibold">{APP_NAME}</h1>
-    </div>
+    <Link to={"/"} className="flex h-fit w-fit select-none items-center gap-1">
+      <img
+        className={cn(
+          "pointer-events-none",
+          size === "sm" ? "size-10" : "size-12",
+        )}
+        src="/favicon.svg"
+        alt={`${APP_NAME} logo`}
+      />
+      <h1
+        className={cn("font-semibold", size === "sm" ? "text-2xl" : "text-3xl")}
+      >
+        {APP_NAME}
+      </h1>
+    </Link>
   );
 };

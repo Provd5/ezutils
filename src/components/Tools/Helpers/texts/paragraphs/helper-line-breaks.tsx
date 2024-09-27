@@ -16,6 +16,7 @@ import {
 import { useConvertText } from "~/hooks/useConvertText";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
 
+import { HELPER_NAME } from "../../helper-tooltip-checkbox";
 import { HelpersRefsContext } from "../../helpers-refs-provider";
 
 interface LineBreaksProps {
@@ -49,20 +50,26 @@ export const HelperLineBreaksAddNewBreak: FC<LineBreaksProps> = ({ tool }) => {
 
   return (
     <div>
-      <Label htmlFor="HelperLineBreaksAddNewBreakNeedle">Needle:</Label>
+      <Label htmlFor={`${HELPER_NAME}-lineBreaks-addNewBreak-needle`}>
+        Needle:
+      </Label>
       <div className="flex flex-col items-center gap-3 sm:flex-row">
         <Input
-          ref={(el) => addRef("HelperLineBreaksAddNewBreakNeedle", el)}
+          ref={(el) =>
+            addRef(`${HELPER_NAME}-lineBreaks-addNewBreak-needle`, el)
+          }
           autoComplete="off"
           className="max-w-xs"
-          id="HelperLineBreaksAddNewBreakNeedle"
+          id={`${HELPER_NAME}-lineBreaks-addNewBreak-needle`}
           defaultValue={needle}
           onChange={(e) => changeOutputValue(e.target.value)}
         />
         <input
-          ref={(el) => addRef("HelperLineBreaksAddNewBreakWhere", el)}
+          ref={(el) =>
+            addRef(`${HELPER_NAME}-lineBreaks-addNewBreak-where`, el)
+          }
           className="hidden"
-          id="HelperLineBreaksAddNewBreakWhere"
+          id={`${HELPER_NAME}-lineBreaks-addNewBreak-where`}
           readOnly
           value={where}
         />
