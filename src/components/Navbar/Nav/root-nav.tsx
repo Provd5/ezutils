@@ -5,7 +5,7 @@ import { Logo } from "~/components/logo";
 
 import { RootNavLink } from "./root-nav-link";
 
-export const RootNav: FC = ({}) => {
+export const RootNav: FC = () => {
   return (
     <nav className="flex flex-col gap-3 max-md:mt-6">
       <div className="mb-3 ml-3">

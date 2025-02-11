@@ -13,7 +13,7 @@ import { validateTextsParams } from "~/utils/validate-texts-params";
 
 import { TextsNavLink } from "./texts-nav-link";
 
-export const TextsNav: FC = ({}) => {
+export const TextsNav: FC = () => {
   const { pathname } = useLocation();
   const { textsCategory } = validateTextsParams("textsCategory", pathname);
 

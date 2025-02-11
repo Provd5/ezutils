@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { type ColorTypes } from "~/types/colors";
 
 import { HELPER_NAME } from "~/components/Tools/Helpers/helper-tooltip-checkbox";
-import { HelpersRefsContext } from "~/components/Tools/Helpers/helpers-refs-provider";
+import { HelpersRefsContext } from "~/context/helpers-refs-context";
 import { type ParsedColor } from "~/converters/colors/converter-colors-parser";
 import { decimalRound } from "~/utils/utils";
 

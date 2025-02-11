@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { type FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { COLORS_ARRAY } from "~/types/colors";
@@ -10,12 +10,14 @@ import { useConvertColor } from "~/hooks/useConvertColor";
 import { HelperTooltipCheckbox } from "../helper-tooltip-checkbox";
 
 export const HelperSetInputFormat: FC = () => {
-  const { colorInput } = useSelector(
-    (state: AppState) => state.colorsConverter,
-  );
+  const state = useSelector((state: AppState) => state.colorsConverter);
   const dispatch = useDispatch<AppDispatch>();
 
   const { convertFrom } = useConvertColor();
+
+  useEffect(() => {
+    convertFrom(state.colorInput.from, state.colorInput.value);
+  }, [convertFrom, state.colorInput]);
 
   return (
     <div className="flex flex-row gap-1">
@@ -23,11 +25,10 @@ export const HelperSetInputFormat: FC = () => {
         <HelperTooltipCheckbox
           key={`ColorsToolWrapper-HelperTooltipCheckbox-${color}`}
           Icon={color}
-          isChecked={color === colorInput.from}
-          toggleCheckbox={() => {
-            dispatch(setColorInput({ ...colorInput, from: color })),
-              convertFrom(color, colorInput.value);
-          }}
+          isChecked={color === state.colorInput.from}
+          toggleCheckbox={() =>
+            dispatch(setColorInput({ ...state.colorInput, from: color }))
+          }
           name={`setColorFormat-${color}`}
         >
           Convert from {color} format

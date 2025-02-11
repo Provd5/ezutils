@@ -13,7 +13,7 @@ export function toRgb(
     newA = 0;
 
   if (from === "HSL") {
-    const h = parseFloat(v1.v) * (v1.unit === "turn" ? 360 : 1);
+    const h = parseFloat(v1.v) / (v1.unit === "turn" ? 1 : 360);
     const s = parseFloat(v2.v) / (v2.unit === "percent" ? 100 : 1);
     const l = parseFloat(v3.v) / (v3.unit === "percent" ? 100 : 1);
 

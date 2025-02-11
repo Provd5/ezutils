@@ -8,13 +8,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import "./index.css";
+import "~/global.css";
 import { APP_STRUCTURE } from "./app/appStructure/app-structure";
 import ColorsToolPage from "./app/pages/ColorsToolPage";
 import ErrorPage from "./app/pages/ErrorPage";
-import RootLayout from "./app/pages/layouts/RootLayout";
-import TextsCategoryLayout from "./app/pages/layouts/TextsCategoryLayout";
-import TextsSubCategoryLayout from "./app/pages/layouts/TextsSubCategoryLayout";
+import RootLayout from "./app/pages/Layouts/RootLayout";
+import TextsCategoryLayout from "./app/pages/Layouts/TextsCategoryLayout";
+import TextsSubCategoryLayout from "./app/pages/Layouts/TextsSubCategoryLayout";
 import TextsToolPage from "./app/pages/TextsToolPage";
 import { store } from "./app/store";
 import { HelpersRefsProvider } from "./components/Tools/Helpers/helpers-refs-provider";

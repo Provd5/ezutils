@@ -8,6 +8,7 @@ import { type AppDispatch, type AppState } from "~/app/store";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/Input";
 import { Label } from "~/components/ui/label";
+import { HelpersRefsContext } from "~/context/helpers-refs-context";
 import {
   newNeedle,
   newWhere,
@@ -17,7 +18,6 @@ import { useConvertText } from "~/hooks/useConvertText";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
 
 import { HELPER_NAME } from "../../helper-tooltip-checkbox";
-import { HelpersRefsContext } from "../../helpers-refs-provider";
 
 interface LineBreaksProps {
   tool: TextsToolKeys;
@@ -37,7 +37,7 @@ export const HelperLineBreaksAddNewBreak: FC<LineBreaksProps> = ({ tool }) => {
 
   const changeOutputValue = useDebouncedCallback(
     (value: string | undefined) => {
-      value && dispatch(newNeedle(value));
+      if (value) dispatch(newNeedle(value));
       convertTextOutput(tool, inputValue);
     },
     DEBOUNCE_WAIT,

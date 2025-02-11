@@ -1,4 +1,5 @@
 import { type FC, useContext } from "react";
+
 import { type IconType } from "react-icons/lib";
 
 import { Button } from "~/components/ui/button";
@@ -8,8 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-
-import { HelpersRefsContext } from "./helpers-refs-provider";
+import { HelpersRefsContext } from "~/context/helpers-refs-context";
 
 interface HelperTooltipCheckboxProps {
   children: React.ReactNode;

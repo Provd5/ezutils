@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -9,7 +8,10 @@ import { parseColor } from "~/converters/colors/converter-colors-parser";
 import { toHex } from "~/converters/colors/to-hex";
 import { toHsl } from "~/converters/colors/to-hsl";
 import { toRgb } from "~/converters/colors/to-rgb";
-import { setColorsOutput } from "~/features/colors/colors-converter-slice";
+import {
+  setColorsOutput,
+  setConvertError,
+} from "~/features/colors/colors-converter-slice";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
 import { errorHandler } from "~/utils/utils";
 
@@ -20,9 +22,7 @@ export const useConvertColor = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const [convertColorError, setConvertColorError] = useState<string>();
-
-  const convertInput = useDebouncedCallback(
+  const convertFrom = useDebouncedCallback(
     (from: keyof ColorTypes, userInput: string): void => {
       try {
         const parsedInput = parseColor(from, userInput);
@@ -41,6 +41,7 @@ export const useConvertColor = () => {
           hsl = toHsl(from, parsedInput);
         }
 
+        dispatch(setConvertError(""));
         dispatch(
           setColorsOutput({
             HEX: formatter("HEX", hex),
@@ -49,16 +50,11 @@ export const useConvertColor = () => {
           }),
         );
       } catch (error) {
-        setConvertColorError(errorHandler(error));
+        dispatch(setConvertError(errorHandler(error)));
       }
     },
     DEBOUNCE_WAIT,
   );
 
-  const convertFrom = (from: keyof ColorTypes, userInput: string): void => {
-    setConvertColorError(undefined);
-    convertInput(from, userInput);
-  };
-
-  return { convertColorError, convertFrom };
+  return { convertFrom };
 };

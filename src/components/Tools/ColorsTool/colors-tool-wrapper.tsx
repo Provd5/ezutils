@@ -13,15 +13,16 @@ import { useConvertColor } from "~/hooks/useConvertColor";
 import { HelperColorsConverter } from "../Helpers/colors/helper-colors-converter";
 import { HelperSetInputFormat } from "../Helpers/colors/helper-set-input-format";
 import { CopyOutput } from "../TextsTool/copy-output";
+import { ColorsToolError } from "./colors-tool-error";
 
-export const ColorsToolWrapper: FC = ({}) => {
+export const ColorsToolWrapper: FC = () => {
   const { colorInput, colorsOutput } = useSelector(
     (state: AppState) => state.colorsConverter,
   );
   const dispatch = useDispatch<AppDispatch>();
 
   const { label, description } = APP_STRUCTURE.colors.tools.colorsConverter;
-  const { convertColorError, convertFrom } = useConvertColor();
+  const { convertFrom } = useConvertColor();
 
   return (
     <div className="flex h-full flex-col">
@@ -29,7 +30,7 @@ export const ColorsToolWrapper: FC = ({}) => {
         <span className="text-lg font-bold">{label}</span> - {description}
       </h1>
 
-      <div className="mb-12 mt-6 flex flex-col border-y border-input bg-background pb-10 pt-6 lg:flex-row">
+      <div className="mb-12 mt-3 flex flex-col border-y border-input bg-background pb-10 pt-6 lg:flex-row">
         <div className="flex w-full flex-col gap-1 p-3">
           <div>
             <Label htmlFor={`ColorInput`}>Paste color:</Label>
@@ -40,17 +41,15 @@ export const ColorsToolWrapper: FC = ({}) => {
               onChange={(e) => {
                 dispatch(
                   setColorInput({ ...colorInput, value: e.target.value }),
-                ),
-                  convertFrom(colorInput.from, e.target.value);
+                );
+                convertFrom(colorInput.from, e.target.value);
               }}
               autoComplete="off"
               onFocus={(e) => e.target.select()}
             />
           </div>
           <HelperSetInputFormat />
-          <div className="flex h-10 items-center">
-            {convertColorError || ""}
-          </div>
+          <ColorsToolError />
           <HelperColorsConverter />
         </div>
 

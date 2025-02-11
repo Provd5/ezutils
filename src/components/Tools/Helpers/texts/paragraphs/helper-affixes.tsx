@@ -7,6 +7,7 @@ import { type TextsToolKeys } from "~/types/texts";
 import { type AppDispatch, type AppState } from "~/app/store";
 import { Input } from "~/components/ui/Input";
 import { Label } from "~/components/ui/label";
+import { HelpersRefsContext } from "~/context/helpers-refs-context";
 import {
   newPrefix,
   newSplitter,
@@ -16,7 +17,6 @@ import { useConvertText } from "~/hooks/useConvertText";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
 
 import { HELPER_NAME } from "../../helper-tooltip-checkbox";
-import { HelpersRefsContext } from "../../helpers-refs-provider";
 import { HelperIncludeEmptyLines } from "../../settings/helper-include-empty-lines";
 
 interface AffixesProps {
@@ -38,7 +38,7 @@ export const HelperAffixesInsertLineNumbering: FC<AffixesProps> = ({
 
   const changeOutputValue = useDebouncedCallback(
     (value: string | undefined) => {
-      value && dispatch(newSplitter(value));
+      if (value) dispatch(newSplitter(value));
       convertTextOutput(tool, inputValue);
     },
     DEBOUNCE_WAIT,
@@ -75,7 +75,7 @@ export const HelperAffixesAddPrefixes: FC<AffixesProps> = ({ tool }) => {
 
   const changeOutputValue = useDebouncedCallback(
     (value: string | undefined) => {
-      value && dispatch(newPrefix(value));
+      if (value) dispatch(newPrefix(value));
       convertTextOutput(tool, inputValue);
     },
     DEBOUNCE_WAIT,
@@ -110,7 +110,7 @@ export const HelperAffixesAddSuffixes: FC<AffixesProps> = ({ tool }) => {
 
   const changeOutputValue = useDebouncedCallback(
     (value: string | undefined) => {
-      value && dispatch(newSuffix(value));
+      if (value) dispatch(newSuffix(value));
       convertTextOutput(tool, inputValue);
     },
     DEBOUNCE_WAIT,

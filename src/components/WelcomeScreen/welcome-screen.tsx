@@ -15,7 +15,7 @@ const texts = {
     "With a variety of powerful text transformation features at your fingertips, you can easily enhance and streamline your workflows.",
 } as const;
 
-export const WelcomeScreen: FC = ({}) => {
+export const WelcomeScreen: FC = () => {
   return (
     <>
       <div className="px-3 pb-12 pt-6 sm:px-6">

@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 import { type ColorTypes } from "~/types/colors";
 
-export type ColorAlpha = "hide" | "afterComma" | "afterSlash";
+export type ColorAlpha = "not" | "afterComma" | "afterSlash";
 export type ColorFormat = "onlyNumbers" | "withCommas" | "full";
 
 export interface ColorsConverterState {
@@ -16,6 +16,7 @@ export interface ColorsConverterState {
   showFormat: boolean;
   showUnits: boolean;
   alpha: ColorAlpha;
+  convertError: string;
 }
 
 const initialState: ColorsConverterState = {
@@ -32,7 +33,8 @@ const initialState: ColorsConverterState = {
   showCommas: true,
   showFormat: true,
   showUnits: true,
-  alpha: "hide",
+  alpha: "not",
+  convertError: "",
 };
 
 const colorsConverterSlice = createSlice({
@@ -76,6 +78,10 @@ const colorsConverterSlice = createSlice({
       state.alpha = action.payload;
       return state;
     },
+    setConvertError: (state, action: PayloadAction<string>) => {
+      state.convertError = action.payload;
+      return state;
+    },
   },
 });
 
@@ -87,6 +93,7 @@ export const {
   toggleFormat,
   toggleUnits,
   toggleAlpha,
+  setConvertError,
 } = colorsConverterSlice.actions;
 
 export default colorsConverterSlice.reducer;

@@ -1,7 +1,8 @@
 import type { FC } from "react";
-import { VscCaseSensitive, VscRegex, VscWholeWord } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { type DebouncedState } from "use-debounce";
+
+import { VscCaseSensitive, VscRegex, VscWholeWord } from "react-icons/vsc";
 
 import { type AppDispatch, type AppState } from "~/app/store";
 import {

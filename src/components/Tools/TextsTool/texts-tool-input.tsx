@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useDebouncedCallback } from "use-debounce";
 
 import { type AppDispatch, type AppState } from "~/app/store";
+import { HelpersRefsContext } from "~/context/helpers-refs-context";
 import { newInput } from "~/features/texts/input-slice";
 import { useConvertText } from "~/hooks/useConvertText";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
@@ -11,7 +12,6 @@ import { validateTextsParams } from "~/utils/validate-texts-params";
 
 import { Label } from "../../ui/label";
 import { Textarea } from "../../ui/textarea";
-import { HelpersRefsContext } from "../Helpers/helpers-refs-provider";
 
 interface TextsToolInputProps {
   placeholder: string;
@@ -34,7 +34,6 @@ export const TextsToolInput: FC<TextsToolInputProps> = ({ placeholder }) => {
 
   useEffect(() => {
     convertTextOutput(textsTool, inputValue);
-
     // eslint-disable-next-line
   }, [textsTool]);
 
@@ -44,7 +43,7 @@ export const TextsToolInput: FC<TextsToolInputProps> = ({ placeholder }) => {
       <Textarea
         ref={(el) => addRef("TextsToolInput", el)}
         id="TextsToolInput"
-        className="min-h-36"
+        className={`min-h-[25vh]`}
         placeholder={placeholder}
         onChange={(e) => changeInputValue(e.target.value)}
         defaultValue={inputValue}

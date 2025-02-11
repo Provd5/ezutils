@@ -1,6 +1,6 @@
 import { type TextsToolKeys } from "~/types/texts";
 
-import { type HelpersRefsContextType } from "~/components/Tools/Helpers/helpers-refs-provider";
+import { type HelpersRefsContextType } from "~/context/helpers-refs-context";
 
 import affixes from "./paragraphs/converter-affixes";
 import lineBreaks from "./paragraphs/converter-line-breaks";

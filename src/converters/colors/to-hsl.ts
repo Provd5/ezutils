@@ -28,7 +28,7 @@ export function toHsl(
 
   const { h, s, l } = rgbToHsl(newV1, newV2, newV3);
   return {
-    v1: { v: Math.round(h).toString(), unit: "deg" },
+    v1: { v: Math.round(h * 360).toString(), unit: "deg" },
     v2: { v: Math.round(s * 100).toString(), unit: "percent" },
     v3: { v: Math.round(l * 100).toString(), unit: "percent" },
     a: { v: newA.toString(), unit: "number" },
