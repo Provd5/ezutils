@@ -22,8 +22,8 @@ export const TextsNav: FC = () => {
   );
 
   return (
-    <Carousel opts={{ dragFree: true }}>
-      <CarouselContent className="mx-2 pt-3">
+    <Carousel opts={{ dragFree: true, align: "start" }}>
+      <CarouselContent className="mx-1 pt-3">
         {subCategories.map((subCategory) => (
           <CarouselItem
             key={`SubNav-SubNavLink-${subCategory.href}`}

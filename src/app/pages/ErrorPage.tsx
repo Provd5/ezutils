@@ -1,7 +1,8 @@
 import { Link, useRouteError } from "react-router-dom";
 
 import { buttonVariants } from "~/components/ui/button";
-import { cn, errorHandler } from "~/utils/utils";
+import { cn } from "~/lib/utils";
+import { errorHandler } from "~/utils/utils";
 
 import { APP_STRUCTURE } from "../appStructure/app-structure";
 

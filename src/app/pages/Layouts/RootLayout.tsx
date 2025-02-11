@@ -1,16 +1,25 @@
 import { Outlet } from "react-router-dom";
 
-import { Navbar } from "~/components/Navbar/navbar";
+import { AppSidebar } from "~/components/Navbar/app-sidebar";
+import { ToggleAppSidebar } from "~/components/Navbar/toggle-app-sidebar";
 import { PageTitle } from "~/components/PageTitle/page-title";
+import { SidebarProvider } from "~/components/ui/sidebar";
 
 export default function RootLayout() {
   return (
-    <div className="flex min-h-screen flex-col-reverse md:flex-row">
-      <PageTitle />
-      <main className="mr-auto flex w-full grow flex-col md:pl-80 lg:pl-96">
-        <Outlet />
-      </main>
-      <Navbar />
-    </div>
+    <SidebarProvider>
+      <AppSidebar />
+      <div className="flex min-h-screen w-full">
+        <PageTitle />
+
+        <main className="flex w-full grow flex-col">
+          <div className="mx-1 mt-1 flex">
+            <ToggleAppSidebar />
+          </div>
+
+          <Outlet />
+        </main>
+      </div>
+    </SidebarProvider>
   );
 }

@@ -3,7 +3,7 @@ import { type FC, useState } from "react";
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 import { MdOutlineContentCopy } from "react-icons/md";
 
-import { cn } from "~/utils/utils";
+import { cn } from "~/lib/utils";
 
 import { Button } from "../../ui/button";
 import {

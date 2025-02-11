@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { type TextsSubCategory } from "~/types/texts";
 
 import { buttonVariants } from "~/components/ui/button";
-import { cn } from "~/utils/utils";
+import { cn } from "~/lib/utils";
 
 interface TextsNavLinkProps {
   variant: TextsSubCategory;
@@ -17,9 +17,10 @@ export const TextsNavLink: FC<TextsNavLinkProps> = ({ variant }) => {
       className={({ isActive }) =>
         cn(
           buttonVariants({
-            variant: isActive ? "default" : "secondary",
+            variant: isActive ? "default" : "outline",
             size: "lg",
           }),
+          "rounded-full",
         )
       }
     >
