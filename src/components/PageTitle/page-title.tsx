@@ -8,7 +8,7 @@ import { APP_STRUCTURE } from "~/app/appStructure/app-structure";
 import { APP_NAME } from "../logo";
 import { textsPageTitle } from "./texts-page-title";
 
-export const PageTitle: FC = ({}) => {
+export const PageTitle: FC = () => {
   const location = useLocation();
   const pathnameSplits = location.pathname.split("/").filter((s) => s !== "");
 

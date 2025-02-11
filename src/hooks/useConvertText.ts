@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { type TextsToolKeys } from "~/types/texts";
 
 import { type AppDispatch } from "~/app/store";
-import { HelpersRefsContext } from "~/components/Tools/Helpers/helpers-refs-provider";
+import { HelpersRefsContext } from "~/context/helpers-refs-context";
 import textsConverter from "~/converters/texts";
 import { newOutput } from "~/features/texts/output-slice";
 

@@ -1,18 +1,19 @@
 import { type FC, useContext, useState } from "react";
-import { FaArrowTurnUp } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
+import { FaArrowTurnUp } from "react-icons/fa6";
+
 import { type AppDispatch, type AppState } from "~/app/store";
+import { HelpersRefsContext } from "~/context/helpers-refs-context";
 import { newInput } from "~/features/texts/input-slice";
 import { useConvertText } from "~/hooks/useConvertText";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
 import { validateTextsParams } from "~/utils/validate-texts-params";
 
 import { Button } from "../../ui/button";
-import { HelpersRefsContext } from "../Helpers/helpers-refs-provider";
 
-export const UseOutput: FC = ({}) => {
+export const UseOutput: FC = () => {
   const outputValue = useSelector((state: AppState) => state.output);
   const dispatch = useDispatch<AppDispatch>();
 

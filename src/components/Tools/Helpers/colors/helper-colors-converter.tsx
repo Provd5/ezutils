@@ -1,6 +1,7 @@
 import { type FC, useEffect } from "react";
-import { FaHashtag } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
+
+import { FaHashtag } from "react-icons/fa6";
 
 import { type AppDispatch, type AppState } from "~/app/store";
 import {
@@ -49,7 +50,12 @@ export const ShowHashtag: FC = () => {
 
   useEffect(() => {
     convertFrom(state.colorInput.from, state.colorInput.value);
-  }, [state.showHashtag]);
+  }, [
+    convertFrom,
+    state.colorInput.from,
+    state.colorInput.value,
+    state.showHashtag,
+  ]);
 
   return (
     <HelperTooltipCheckbox
@@ -75,7 +81,12 @@ export const ShowCommas: FC = () => {
 
   useEffect(() => {
     convertFrom(state.colorInput.from, state.colorInput.value);
-  }, [state.showCommas]);
+  }, [
+    convertFrom,
+    state.colorInput.from,
+    state.colorInput.value,
+    state.showCommas,
+  ]);
 
   return (
     <HelperTooltipCheckbox
@@ -101,7 +112,12 @@ export const ShowFormat: FC = () => {
 
   useEffect(() => {
     convertFrom(state.colorInput.from, state.colorInput.value);
-  }, [state.showFormat]);
+  }, [
+    convertFrom,
+    state.colorInput.from,
+    state.colorInput.value,
+    state.showFormat,
+  ]);
 
   return (
     <HelperTooltipCheckbox
@@ -127,7 +143,12 @@ export const ShowUnits: FC = () => {
 
   useEffect(() => {
     convertFrom(state.colorInput.from, state.colorInput.value);
-  }, [state.showUnits]);
+  }, [
+    convertFrom,
+    state.colorInput.from,
+    state.colorInput.value,
+    state.showUnits,
+  ]);
 
   return (
     <HelperTooltipCheckbox
@@ -146,7 +167,7 @@ export const Alpha: FC = () => {
   const state = useSelector((state: AppState) => state.colorsConverter);
 
   const alphaSettings: ColorAlpha[] = [
-    "hide",
+    "not",
     "afterComma",
     "afterSlash",
   ] as const;
@@ -159,19 +180,19 @@ export const Alpha: FC = () => {
 
   useEffect(() => {
     convertFrom(state.colorInput.from, state.colorInput.value);
-  }, [state.alpha]);
+  }, [convertFrom, state.alpha, state.colorInput.from, state.colorInput.value]);
 
   return alphaSettings.map((type) => (
     <HelperTooltipCheckbox
       key={`Alpha-HelperTooltipCheckbox-${type}`}
       Icon={
-        type === "afterComma" ? ", a" : type === "afterSlash" ? "/ a" : "hide"
+        type === "afterComma" ? ", a" : type === "afterSlash" ? "/ a" : "not"
       }
       isChecked={state.alpha === type}
       toggleCheckbox={() => toggle(type)}
       name={`alpha-${type}`}
     >
-      {type === "hide" && "Don't show alpha value"}
+      {type === "not" && "Don't use alpha value"}
       {type === "afterComma" && "Show comma-separated alpha value"}
       {type === "afterSlash" && "Show slash-separated alpha value"}
     </HelperTooltipCheckbox>

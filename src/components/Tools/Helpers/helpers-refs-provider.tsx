@@ -1,26 +1,13 @@
-import { createContext, type FC, useRef } from "react";
+import { type FC, useRef } from "react";
 
-type RefType = HTMLInputElement | HTMLTextAreaElement | null;
-
-export type HelpersRefsContextType = {
-  addRef: (key: string, ref: RefType) => void;
-  getRefElement: (key: string) => RefType;
-  getRefValue: (key: string) => string | boolean | undefined;
-};
+import {
+  HelpersRefsContext,
+  type RefType,
+} from "~/context/helpers-refs-context";
 
 interface HelpersRefsProviderProps {
   children: React.ReactNode;
 }
-
-export const HelpersRefsContext = createContext<HelpersRefsContextType>({
-  addRef() {},
-  getRefElement() {
-    return null;
-  },
-  getRefValue() {
-    return undefined;
-  },
-});
 
 export const HelpersRefsProvider: FC<HelpersRefsProviderProps> = ({
   children,

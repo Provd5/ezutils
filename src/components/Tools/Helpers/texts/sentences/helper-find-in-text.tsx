@@ -7,6 +7,7 @@ import { type TextsToolKeys } from "~/types/texts";
 import { type AppDispatch, type AppState } from "~/app/store";
 import { Input } from "~/components/ui/Input";
 import { Label } from "~/components/ui/label";
+import { HelpersRefsContext } from "~/context/helpers-refs-context";
 import {
   newReplaceWith,
   newToReplace,
@@ -15,7 +16,6 @@ import { useConvertText } from "~/hooks/useConvertText";
 import { DEBOUNCE_WAIT } from "~/utils/constants";
 
 import { HELPER_NAME } from "../../helper-tooltip-checkbox";
-import { HelpersRefsContext } from "../../helpers-refs-provider";
 import { HelperWordMatch } from "../../settings/helper-word-match";
 
 interface FindInTextProps {
@@ -103,7 +103,7 @@ export const HelperFindInTextFindAndCount: FC<FindInTextProps> = ({ tool }) => {
   const { convertTextOutput } = useConvertText();
 
   const changeOutputValue = useDebouncedCallback((value?: string) => {
-    value && dispatch(newToReplace(value));
+    if (value) dispatch(newToReplace(value));
 
     convertTextOutput(tool, inputValue);
   }, DEBOUNCE_WAIT);

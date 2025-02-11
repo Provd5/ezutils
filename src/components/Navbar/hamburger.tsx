@@ -1,12 +1,13 @@
 import { type FC, useEffect, useRef } from "react";
-import { RiMenuFoldLine } from "react-icons/ri";
 import { useLocation } from "react-router-dom";
+
+import { RiMenuFoldLine } from "react-icons/ri";
 
 import { Button } from "../ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import { RootNav } from "./Nav/root-nav";
 
-export const Hamburger: FC = ({}) => {
+export const Hamburger: FC = () => {
   const location = useLocation();
   const closeSheetRef = useRef<HTMLButtonElement>(null);
 

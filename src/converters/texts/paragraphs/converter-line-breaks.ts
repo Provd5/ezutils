@@ -1,5 +1,5 @@
 import { HELPER_NAME } from "~/components/Tools/Helpers/helper-tooltip-checkbox";
-import { type HelpersRefsContextType } from "~/components/Tools/Helpers/helpers-refs-provider";
+import { type HelpersRefsContextType } from "~/context/helpers-refs-context";
 
 import remove from "../sentences/converter-remove";
 

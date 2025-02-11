@@ -14,7 +14,7 @@ import { validateTextsParams } from "~/utils/validate-texts-params";
 
 import { TextsSubNavLink } from "./texts-sub-nav-link";
 
-export const TextsSubNav: FC = ({}) => {
+export const TextsSubNav: FC = () => {
   const { pathname } = useLocation();
   const { textsCategory, textsSubCategory } = validateTextsParams(
     "textsSubCategory",

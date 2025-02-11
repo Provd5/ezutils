@@ -1,7 +1,7 @@
 import { type ColorTypes } from "~/types/colors";
 
-const INPUT_ERROR = (type: keyof ColorTypes) => {
-  return new Error(`Invalid ${type} input`);
+const INPUT_ERROR = (type: keyof ColorTypes, msg?: string) => {
+  return new Error(`Invalid ${type} input!${msg ? ` ${msg}` : ""}`);
 };
 
 type ParsedValue = {
@@ -20,6 +20,32 @@ export const parseColor = (
   inputKey: keyof ColorTypes,
   userInput: string,
 ): ParsedColor => {
+  if (userInput === "") {
+    if (inputKey === "HEX")
+      return {
+        v1: { v: "00", unit: "hex" },
+        v2: { v: "00", unit: "hex" },
+        v3: { v: "00", unit: "hex" },
+        a: { v: "FF", unit: "hex" },
+      };
+
+    if (inputKey === "HSL")
+      return {
+        v1: { v: "0", unit: "deg" },
+        v2: { v: "0", unit: "percent" },
+        v3: { v: "0", unit: "percent" },
+        a: { v: "1", unit: "number" },
+      };
+
+    if (inputKey === "RGB")
+      return {
+        v1: { v: "0", unit: "number" },
+        v2: { v: "0", unit: "number" },
+        v3: { v: "0", unit: "number" },
+        a: { v: "1", unit: "number" },
+      };
+  }
+
   const { v1, v2, v3, a } = isolateColors(inputKey, userInput);
 
   const n1 = parseFloat(v1);
@@ -37,52 +63,57 @@ export const parseColor = (
   }
 
   if (inputKey === "HSL") {
-    const isTurn = v1.includes("turn");
-    const isAlphaInPercent = a.includes("%");
-    const upperLimit = isTurn ? 1 : 360;
-    const alphaUpperLimit = isAlphaInPercent ? 100 : 1;
-    if (n1 < 0 || n1 > upperLimit) {
-      throw INPUT_ERROR(inputKey);
+    const hUpperLimit = v1.includes("turn") ? 1 : 360;
+    const sUpperLimit = v2.includes("%") ? 100 : 1;
+    const lUpperLimit = v3.includes("%") ? 100 : 1;
+    const aUpperLimit = a.includes("%") ? 100 : 1;
+
+    if (n1 < 0 || n1 > hUpperLimit) {
+      throw INPUT_ERROR(inputKey, "Invalid hue scope.");
     }
-    if (n2 < 0 || n2 > 100 || n3 < 0 || n3 > 100) {
-      throw INPUT_ERROR(inputKey);
+    if (n2 < 0 || n2 > sUpperLimit || n3 < 0 || n3 > lUpperLimit) {
+      throw INPUT_ERROR(inputKey, "Invalid saturation or lightness scope.");
     }
-    if (na < 0 || na > alphaUpperLimit) {
-      throw INPUT_ERROR(inputKey);
+    if (na < 0 || na > aUpperLimit) {
+      throw INPUT_ERROR(inputKey, "Invalid alpha channel scope.");
     }
 
     return {
-      v1: { v: v1.replace("turn" || "deg", ""), unit: isTurn ? "turn" : "deg" },
-      v2: { v: v2, unit: "percent" },
-      v3: { v: v3, unit: "percent" },
-      a: { v: a, unit: isAlphaInPercent ? "percent" : "number" },
+      v1: {
+        v: v1.replace("turn", "").replace("deg", ""),
+        unit: v1.includes("turn") ? "turn" : "deg",
+      },
+      v2: { v: v2, unit: v2.includes("%") ? "percent" : "number" },
+      v3: { v: v3, unit: v3.includes("%") ? "percent" : "number" },
+      a: { v: a, unit: a.includes("%") ? "percent" : "number" },
     };
   }
 
   if (inputKey === "RGB") {
-    const isInPercent = (v1 || v2 || v3).includes("%");
-    const isAlphaInPercent = a.includes("%");
-    const upperLimit = isInPercent ? 100 : 255;
-    const alphaUpperLimit = isAlphaInPercent ? 100 : 1;
+    const rUpperLimit = v1.includes("%") ? 100 : 255;
+    const gUpperLimit = v2.includes("%") ? 100 : 255;
+    const bUpperLimit = v3.includes("%") ? 100 : 255;
+    const aUpperLimit = a.includes("%") ? 100 : 1;
+
     if (
       n1 < 0 ||
-      n1 > upperLimit ||
+      n1 > rUpperLimit ||
       n2 < 0 ||
-      n2 > upperLimit ||
+      n2 > gUpperLimit ||
       n3 < 0 ||
-      n3 > upperLimit
+      n3 > bUpperLimit
     ) {
-      throw INPUT_ERROR(inputKey);
+      throw INPUT_ERROR(inputKey, "Invalid color scope.");
     }
-    if (na < 0 || na > alphaUpperLimit) {
-      throw INPUT_ERROR(inputKey);
+    if (na < 0 || na > aUpperLimit) {
+      throw INPUT_ERROR(inputKey, "Invalid alpha channel scope.");
     }
 
     return {
-      v1: { v: v1, unit: isInPercent ? "percent" : "number" },
-      v2: { v: v2, unit: isInPercent ? "percent" : "number" },
-      v3: { v: v3, unit: isInPercent ? "percent" : "number" },
-      a: { v: a, unit: isAlphaInPercent ? "percent" : "number" },
+      v1: { v: v1, unit: v1.includes("%") ? "percent" : "number" },
+      v2: { v: v2, unit: v2.includes("%") ? "percent" : "number" },
+      v3: { v: v3, unit: v3.includes("%") ? "percent" : "number" },
+      a: { v: a, unit: a.includes("%") ? "percent" : "number" },
     };
   }
 
@@ -143,7 +174,6 @@ function isolateColors(
     }
   } else {
     values = result.split(/[\s,/]/).filter((x) => x !== "");
-    console.log(values);
 
     if (
       !values[0] ||

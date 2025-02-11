@@ -1,7 +1,8 @@
 import type { FC } from "react";
-import { VscNoNewline } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { type DebouncedState } from "use-debounce";
+
+import { VscNoNewline } from "react-icons/vsc";
 
 import { type AppDispatch, type AppState } from "~/app/store";
 import { toggleIncludeEmpty } from "~/features/settings-slice";
