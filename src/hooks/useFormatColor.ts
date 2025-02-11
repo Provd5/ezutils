@@ -16,7 +16,7 @@ export const useFormatColor = () => {
     const showCommas = getRefValue(`${HELPER_NAME}-showCommas`);
     const showUnits = getRefValue(`${HELPER_NAME}-showUnits`);
 
-    const hideAlpha = getRefValue(`${HELPER_NAME}-alpha-hide`);
+    const hideAlpha = getRefValue(`${HELPER_NAME}-alpha-not`);
     const afterCommaAlpha = getRefValue(`${HELPER_NAME}-alpha-afterComma`);
     const afterSlashAlpha = getRefValue(`${HELPER_NAME}-alpha-afterSlash`);
 
