@@ -1,4 +1,4 @@
-import remove from "./converter-remove";
+import converterRemove from "./converter-remove";
 
 function camelCase(input: string): string {
   const words = input.split(/(?<=\w)[-_ ](?=\w)|(?<=[a-z])(?=[A-Z])/g);
@@ -49,38 +49,23 @@ function titleCase(input: string): string {
   const lines = input.split("\n");
   return lines
     .map((line) => {
-      const words = line.split(/(?<=[\W ])(?=\w)/g);
+      const words = line.split(/[\s ]/);
       return words
         .map((word) => {
           return (word[0]?.toUpperCase() || "") + word.slice(1).toLowerCase();
         })
-        .join("");
+        .join(" ");
     })
     .join("\n");
 }
 
 function sentence(input: string): string {
-  let newInput = input;
+  let newInput = converterRemove.removeExcessSpaces(input);
   const punctuationMarks = [",", ".", "?", "!"] as const;
 
-  punctuationMarks.forEach(
-    (mark) => (newInput = punctuationController(newInput, mark)),
-  );
-
-  punctuationMarks.forEach((mark) => {
-    const markPrefixRegex = new RegExp(`\\${mark} `);
-    const sentences = newInput.split(markPrefixRegex);
-    newInput = toTitleCase(sentences).join(`${mark} `);
-  });
-
-  const lines = newInput.split(/\n/);
-  newInput = toTitleCase(lines).join(`\n`);
-
-  return newInput;
-
-  function toTitleCase(sentences: string[]): string[] {
+  function titleCaseController(sentences: string[]): string[] {
     const titleCase = sentences.map((sentence) => {
-      const word = sentence.split(" ")[0];
+      const word = sentence.split(/[\s ]/)[0];
       const title = word[0]?.toUpperCase() || "";
 
       return title + sentence.slice(1);
@@ -102,10 +87,28 @@ function sentence(input: string): string {
 
     const markRegex = new RegExp(`\\${mark}(?![.?!])`);
     newStr = newStr.split(markRegex).join(`${mark} `);
-    newStr = remove.removeExcessSpaces(newStr);
+    newStr = converterRemove.removeExcessSpaces(newStr);
 
     return newStr;
   }
+
+  punctuationMarks.forEach(
+    (mark) => (newInput = punctuationController(newInput, mark)),
+  );
+
+  punctuationMarks.forEach((mark) => {
+    const markPrefixRegex = new RegExp(`\\${mark} `);
+    const sentences = newInput.split(markPrefixRegex);
+    newInput =
+      mark === ","
+        ? sentences.join(`${mark} `)
+        : titleCaseController(sentences).join(`${mark} `);
+  });
+
+  const lines = newInput.split(/\n/);
+  newInput = titleCaseController(lines).join(`\n`);
+
+  return newInput;
 }
 
 function randomCase(input: string): string {
